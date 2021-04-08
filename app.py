@@ -12,7 +12,7 @@ import pandas as pd
 import plotly.express as px
 import dash_table
 
-tabtitle = 'Leaderboard'
+tabtitle = 'ZED.RUN Leaderboard'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -25,7 +25,8 @@ colors = {
 }
 
 # add file to to directory
-lb_df = pd.read_csv('zedrun_leaderboard-v6_by_class.csv')
+updated = '4.7.2021 23:58'
+lb_df = pd.read_csv('zedrun_leaderboard-4.7.2021 23:58.csv')
 
 def generate_table(lb_df):
     return dash_table.DataTable(
@@ -75,9 +76,10 @@ def generate_table(lb_df):
         ],
         style_data_conditional=[
             {
-            'if': {'column_id': 'Name'},
+            'if': {'column_id': 'Name','Rank'},
             'textAlign': 'right',
-            'fontWeight': 'bold'
+            'fontWeight': 'bold',
+            'fontSize': '14px'
             },
             {
                 'if': {'row_index': 'odd'},
@@ -150,8 +152,6 @@ lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
 lb_df['ETH Won'] = round(lb_df['ETH Won'], 2)
 
-now = datetime.datetime.now()
-
 tab_style = {
     'borderBottom': '1px solid black',
     'padding': '3px',
@@ -169,9 +169,16 @@ tab_selected_style = {
 }
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.Div(children=f'Created by: oWylee | Data updated: {now.isoformat()[:10]}', style={
+    html.Div(children=f'Created by: oWylee | Data updated: {updated}', style={
         'textAlign': 'right',
         'fontSize': '10px',
+        'color': colors['text'],
+        'padding': '5px'
+
+    }),
+    html.Div(children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
+        'textAlign': 'right',
+        'fontSize': '8px',
         'color': colors['text'],
         'padding': '5px'
 
