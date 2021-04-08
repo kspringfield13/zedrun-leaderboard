@@ -122,15 +122,27 @@ def generate_table(lb_df):
                 },
                 'backgroundColor': 'rgb(22, 245, 230)',
                 'color': 'black'
-            },
+            }
+        ] +
+        [
             {
                 'if': {
-                    'filter_query': '{{Rank}} = {}'.format(lb_df['Rank'].min()),
+                    'filter_query': '{{Rank}} = {}'.format(i),
                     'column_id': 'Rank'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
-                'color': 'black'
-            },
+                'color': 'tomato'
+            }
+            for i in lb_df['Rank'].nsmallest(10)
+        ] +
+        [
+            {
+                'if': {
+                    'filter_query': '{{Rank}} = {}'.format(i),
+                    'column_id': 'Name'
+                },
+                'color': 'tomato'
+            }
+            for i in lb_df['Rank'].nsmallest(10)
         ],
         style_cell_conditional=[
         {'if': {'column_id': 'Name'},
@@ -175,12 +187,28 @@ tab_selected_style = {
 }
 
 app.layout = app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.Div(children=f'Created by: oWylee | Data updated: {updated}', style={
+    html.Div(className='row',
+        style = {'display':'flex'},
+        children=[
+    html.Div(
+        children=f'V1', style={
+        'textAlign': 'left',
+        'fontSize': '10px',
+        'color': colors['text'],
+        'padding': '5px',
+        'width': '49.5%',
+        'display': 'inline-block'
+    }), 
+    html.Div(
+        children=f'Created by: oWylee | Data updated: {updated}', style={
         'textAlign': 'right',
         'fontSize': '10px',
         'color': colors['text'],
-        'padding': '5px'
-    }),
+        'padding': '5px',
+        'width': '49.5%',
+        'display': 'inline-block'
+    })]
+    ),
     html.H1(
         children='♘ ZED.RUN LEADERBOARD ♘',
         style={
