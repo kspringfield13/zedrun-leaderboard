@@ -25,8 +25,8 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.7.2021 23:58'
-lb_df = pd.read_csv('zedrun_leaderboard-4.7.2021_23_58.csv')
+updated = '4.8.2021'
+lb_df = pd.read_csv('zedrun_leaderboard-4.8.2021_20_58.csv')
 
 def generate_table(lb_df):
     return dash_table.DataTable(
@@ -222,7 +222,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
              style = {'display':'flex'},
              children=[
             html.Div(
-                children=f'*Ranked by Current Class & 25 Race Min.', style={
+                children=f'1387 Horses *Ranked by Current Class & 25 Race Min. *Paid Races Only', style={
                 'textAlign': 'left',
                 'fontSize': '8px',
                 'color': colors['text'],
