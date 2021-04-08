@@ -195,11 +195,11 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
              children=[
             html.Div(
                 children=f'*Ranked by Current Class & 25 Race Min.', style={
-                'textAlign': 'right',
+                'textAlign': 'left',
                 'fontSize': '10px',
                 'color': colors['text'],
                 'padding': '5px',
-                'width': '49%',
+                'width': '49.5%',
                 'display': 'inline-block'
             }), 
             html.Div(
@@ -208,7 +208,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
                 'fontSize': '10px',
                 'color': colors['text'],
                 'padding': '5px',
-                'width': '49%',
+                'width': '49.5%',
                 'display': 'inline-block'
             })]
             ),
