@@ -54,7 +54,7 @@ def generate_table(lb_df):
             'color': 'white',
             'fontWeight': 'bold',
             'font_family': 'arial',
-            'font_size': '14px',
+            'font_size': '12px',
             'backgroundColor': 'rgb(10, 10, 10)'
         },
         style_data={
@@ -193,7 +193,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
     html.Div(
         children=f'V1', style={
         'textAlign': 'left',
-        'fontSize': '10px',
+        'fontSize': '8px',
         'color': colors['text'],
         'padding': '5px',
         'width': '49.5%',
@@ -202,7 +202,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
     html.Div(
         children=f'Created by: oWylee | Data updated: {updated}', style={
         'textAlign': 'right',
-        'fontSize': '10px',
+        'fontSize': '8px',
         'color': colors['text'],
         'padding': '5px',
         'width': '49.5%',
@@ -224,7 +224,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
             html.Div(
                 children=f'*Ranked by Current Class & 25 Race Min.', style={
                 'textAlign': 'left',
-                'fontSize': '10px',
+                'fontSize': '8px',
                 'color': colors['text'],
                 'padding': '5px',
                 'width': '49.5%',
@@ -233,7 +233,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
             html.Div(
                 children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
                 'textAlign': 'right',
-                'fontSize': '10px',
+                'fontSize': '6px',
                 'color': colors['text'],
                 'padding': '5px',
                 'width': '49.5%',
