@@ -214,7 +214,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 'fontSize': '8px',
                 'color': colors['text'],
                 'padding': '5px'
-            })
+            })]
             ),
     dcc.Tabs(
         id="tabs-with-classes",
