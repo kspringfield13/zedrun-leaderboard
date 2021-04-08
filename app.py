@@ -199,7 +199,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
     html.Div(className='row',
-             style: {'display':'flex'},
+             style = {'display':'flex'},
              children=[
             html.Div(
                 children=f'*Ranked by Current Class & 25 Race Min.', style={
