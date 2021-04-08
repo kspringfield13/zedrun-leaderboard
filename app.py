@@ -174,25 +174,19 @@ tab_selected_style = {
     'padding': '3px'
 }
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.Div(className='row',
-             style = {'display':'inline-block'},
-             children=[
-        html.Div(
-            children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
-            'textAlign': 'left',
-            'fontSize': '8px',
-            'color': colors['text'],
-            'padding': '3px'},
-            style={'width': '49%', 'display': 'inline-block'}), 
-        html.Div(
-            children=f'Created by: oWylee | Data updated: {updated}', style={
-            'textAlign': 'right',
-            'fontSize': '10px',
-            'color': colors['text'],
-            'padding': '5px'},
-            style={'width': '49%', 'display': 'inline-block'})]
-    )
+app.layout = app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.Div(children=f'Created by: oWylee | Data updated: {updated}', style={
+        'textAlign': 'right',
+        'fontSize': '10px',
+        'color': colors['text'],
+        'padding': '5px'
+    }),
+    # html.Div(children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
+    #     'textAlign': 'right',
+    #     'fontSize': '8px',
+    #     'color': colors['text'],
+    #     'padding': '5px'
+    # }),
     html.H1(
         children='♘ ZED.RUN LEADERBOARD ♘',
         style={
@@ -202,14 +196,24 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             'padding': '5px'
         }
     ),
-    html.Div(
-        children=f'*Ranked by Current Class & 25 Race Min.', style={
-        'textAlign': 'right',
-        'fontSize': '10px',
-        'color': colors['text'],
-        'padding': '5px'
-
-    }),
+    html.Div(className='row',
+             style = {'display':'flex'},
+             children=[
+            html.Div(
+                children=f'*Ranked by Current Class & 25 Race Min.', style={
+                'textAlign': 'right',
+                'fontSize': '10px',
+                'color': colors['text'],
+                'padding': '5px'
+            }), 
+            html.Div(
+                children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
+                'textAlign': 'right',
+                'fontSize': '10px',
+                'color': colors['text'],
+                'padding': '5px'
+            })]
+            ),
     dcc.Tabs(
         id="tabs-with-classes",
         value='tab-1',
@@ -255,9 +259,9 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 style=tab_style,
                 selected_style=tab_selected_style
             ),
-        ]),
-    html.Div(id='tabs-content-classes'),
-    html.Div(id='datatable-interactivity-container'),
+    ]),
+html.Div(id='tabs-content-classes'),
+html.Div(id='datatable-interactivity-container'),
 ])
 
 @app.callback(Output('tabs-content-classes', 'children'),
