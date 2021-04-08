@@ -175,20 +175,40 @@ tab_selected_style = {
 }
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.Div(children=f'Created by: oWylee | Data updated: {updated}', style={
+    # html.Div(
+    #     children=f'Created by: oWylee | Data updated: {updated}', style={
+    #     'textAlign': 'right',
+    #     'fontSize': '10px',
+    #     'color': colors['text'],
+    #     'padding': '5px'
+
+    # }),
+    html.Div(className='row',
+             style = {'display':'flex'},
+             children=[
+        html.Div(
+            children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
+            'textAlign': 'left',
+            'fontSize': '8px',
+            'color': colors['text'],
+            'padding': '3px'
+        }), 
+        html.Div(
+            children=f'Created by: oWylee | Data updated: {updated}', style={
+            'textAlign': 'right',
+            'fontSize': '10px',
+            'color': colors['text'],
+            'padding': '5px'
+        })]
+    ),
+    html.Div(
+        children=f'*Ranked by Current Class & 25 Race Min.', style={
         'textAlign': 'right',
         'fontSize': '10px',
         'color': colors['text'],
         'padding': '5px'
 
     }),
-    # html.Div(children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
-    #     'textAlign': 'right',
-    #     'fontSize': '8px',
-    #     'color': colors['text'],
-    #     'padding': '5px'
-
-    # }),
     html.H1(
         children='♘ ZED.RUN LEADERBOARD ♘',
         style={
@@ -198,24 +218,24 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             'padding': '5px'
         }
     ),
-    html.Div(className='row',
-             style = {'display':'flex'},
-             children=[
-            html.Div(
-                children=f'*Ranked by Current Class & 25 Race Min.', style={
-                'textAlign': 'right',
-                'fontSize': '10px',
-                'color': colors['text'],
-                'padding': '5px'
-            }), 
-            html.Div(
-                children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
-                'textAlign': 'right',
-                'fontSize': '8px',
-                'color': colors['text'],
-                'padding': '5px'
-            })]
-            ),
+    # html.Div(className='row',
+    #          style = {'display':'flex'},
+    #          children=[
+    #         html.Div(
+    #             children=f'*Ranked by Current Class & 25 Race Min.', style={
+    #             'textAlign': 'left',
+    #             'fontSize': '10px',
+    #             'color': colors['text'],
+    #             'padding': '5px'
+    #         }), 
+    #         html.Div(
+    #             children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
+    #             'textAlign': 'right',
+    #             'fontSize': '8px',
+    #             'color': colors['text'],
+    #             'padding': '3px'
+    #         })]
+    #         ),
     dcc.Tabs(
         id="tabs-with-classes",
         value='tab-1',
