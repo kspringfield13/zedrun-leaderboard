@@ -76,8 +76,14 @@ def generate_table(lb_df):
         ],
         style_data_conditional=[
             {
-            'if': {'column_id': 'Name','column_id': 'Rank'},
+            'if': {'column_id': 'Name'},
             'textAlign': 'right',
+            'fontWeight': 'bold',
+            'fontSize': '16px'
+            },
+            {
+            'if': {'column_id': 'Rank'},
+            'textAlign': 'center',
             'fontWeight': 'bold',
             'fontSize': '16px'
             },
