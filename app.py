@@ -191,15 +191,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             'textAlign': 'left',
             'fontSize': '8px',
             'color': colors['text'],
-            'padding': '3px'
-        }), 
+            'padding': '3px'},
+            style={'width': '49%', 'display': 'inline-block'}), 
         html.Div(
             children=f'Created by: oWylee | Data updated: {updated}', style={
             'textAlign': 'right',
             'fontSize': '10px',
             'color': colors['text'],
-            'padding': '5px'
-        })]
+            'padding': '5px'},
+            style={'width': '49%', 'display': 'inline-block'})]
     ),
     html.Div(
         children=f'*Ranked by Current Class & 25 Race Min.', style={
