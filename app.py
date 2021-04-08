@@ -233,7 +233,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
             html.Div(
                 children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
                 'textAlign': 'right',
-                'fontSize': '6px',
+                'fontSize': '8px',
                 'color': colors['text'],
                 'padding': '5px',
                 'width': '49.5%',
