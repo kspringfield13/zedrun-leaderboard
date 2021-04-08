@@ -181,12 +181,6 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
         'color': colors['text'],
         'padding': '5px'
     }),
-    # html.Div(children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
-    #     'textAlign': 'right',
-    #     'fontSize': '8px',
-    #     'color': colors['text'],
-    #     'padding': '5px'
-    # }),
     html.H1(
         children='♘ ZED.RUN LEADERBOARD ♘',
         style={
@@ -204,14 +198,18 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
                 'textAlign': 'right',
                 'fontSize': '10px',
                 'color': colors['text'],
-                'padding': '5px'
+                'padding': '5px',
+                'width': '49%',
+                'display': 'inline-block'
             }), 
             html.Div(
                 children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
                 'textAlign': 'right',
                 'fontSize': '10px',
                 'color': colors['text'],
-                'padding': '5px'
+                'padding': '5px',
+                'width': '49%',
+                'display': 'inline-block'
             })]
             ),
     dcc.Tabs(
