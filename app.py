@@ -25,8 +25,8 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.8.2021'
-lb_df = pd.read_csv('zedrun_leaderboard-4.8.2021_20_58-2.csv')
+updated = '4.9.2021 6:22pm EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.9.2021_6_22.csv')
 
 def generate_table(lb_df):
     return dash_table.DataTable(
@@ -117,8 +117,8 @@ def generate_table(lb_df):
             },
             {
                 'if': {
-                    'filter_query': '{{ETH Won}} = {}'.format(lb_df['ETH Won'].max()),
-                    'column_id': 'ETH Won'
+                    'filter_query': '{{Avg. Odds}} = {}'.format(lb_df['Avg. Odds'].min()),
+                    'column_id': 'Avg. Odds'
                 },
                 'backgroundColor': 'rgb(22, 245, 230)',
                 'color': 'black'
@@ -152,7 +152,7 @@ def generate_table(lb_df):
     )
 
 lb_df = lb_df[['name','gen','bloodline','breed_type','gender','stable_name',
-               'class','race_count','placed_pct','win_pct','prize_money','rank']]
+               'class','race_count','placed_pct','win_pct','odds','rank']]
 lb_df.rename(columns={'name':'Name',
                       'gen':'Gen',
                       'bloodline':'Bloodline',
@@ -163,12 +163,12 @@ lb_df.rename(columns={'name':'Name',
                       'race_count':'Races',
                       'placed_pct':'Placed %',
                       'win_pct':'Win %',
-                      'prize_money':'ETH Won',
+                      'odds':'Avg. Odds',
                       'rank':'Rank'}, inplace=True)
 
 lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
-lb_df['ETH Won'] = round(lb_df['ETH Won'], 2)
+lb_df['Avg. Odds'] = round(lb_df['Avg. Odds'], 2)
 
 tab_style = {
     'borderBottom': '1px solid black',
@@ -191,7 +191,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
         style = {'display':'flex'},
         children=[
     html.Div(
-        children=f'V1', style={
+        children=f'V1.1', style={
         'textAlign': 'left',
         'fontSize': '8px',
         'color': colors['text'],
@@ -222,7 +222,7 @@ app.layout = app.layout = html.Div(style={'backgroundColor': colors['background'
              style = {'display':'flex'},
              children=[
             html.Div(
-                children=f'1672 Horses *Ranked by Current Class & 20 Race Min. *Paid Races Only', style={
+                children=f'1843 Horses *Ranked by Current Class & 20 Race Min. *Paid Races Only', style={
                 'textAlign': 'left',
                 'fontSize': '8px',
                 'color': colors['text'],
