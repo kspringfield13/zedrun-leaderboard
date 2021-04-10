@@ -186,7 +186,7 @@ tab_selected_style = {
     'padding': '3px'
 }
 
-app.layout = app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     html.Div(className='row',
         style = {'display':'flex'},
         children=[
