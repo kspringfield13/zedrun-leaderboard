@@ -1,6 +1,6 @@
 import base64
 import datetime
-import io
+import io, os
 import plotly.graph_objs as go
 
 import dash
@@ -209,15 +209,29 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'display': 'inline-block'
     })]
     ),
-    html.H1(
-        children='♘ ZED.RUN LEADERBOARD ♘',
-        style={
-            'textAlign': 'center',
-            'color': colors['text'],
-            'backgroundColor':'black',
-            'padding': '5px'
-        }
-    ),
+    html.Div(className='row',
+             style = {'display':'flex',
+                      'width': '100%'},
+             children=[
+            html.H1(
+                children='♘ ZED.RUN LEADERBOARD ♘',
+                style={'height': '35px',
+                       'color': colors['text'],
+                       'backgroundColor':'black',
+                       'padding': '5px',
+                       'width': '100%',
+                       'textAlign': 'center',
+                       'display': 'inline-block'
+                }
+            ),
+            html.Img(src=app.get_asset_url('avi.png'),
+                     style={
+                         'height': '55px',
+                         'width': '-20%',
+                         'display': 'inline-block',
+                         'padding': '5px'
+                     })
+            ]),
     html.Div(className='row',
              style = {'display':'flex'},
              children=[
