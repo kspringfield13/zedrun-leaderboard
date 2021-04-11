@@ -25,8 +25,8 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.10.2021 6:33pm EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.10.2021_6_33.csv')
+updated = '4.11.2021 7:29pm EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.11.2021_7_29.csv')
 
 def generate_table(lb_df):
     return dash_table.DataTable(
