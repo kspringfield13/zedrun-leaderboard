@@ -196,10 +196,10 @@ wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
 wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
 
 tab_style_t = {
-    'borderBottom': '2px solid black',
-    'borderTop': '1px solid black',
-    'borderLeft': '1.5px solid black',
-    'borderRight': '1.5px solid black',
+    'borderBottom': '4px solid black',
+    'borderTop': '3px solid black',
+    'borderLeft': '3px solid black',
+    'borderRight': '3px solid black',
     'backgroundColor': 'rgb(69, 89, 88)',
     'color': 'rgb(221, 235, 234)',
     'padding': '3px',
@@ -207,7 +207,7 @@ tab_style_t = {
 }
 
 tab_style_b = {
-    'borderBottom': '5px solid black',
+    'borderBottom': '6px solid black',
     'borderTop': '3px solid black',
     'borderLeft': '3px solid black',
     'borderRight': '3px solid black',
