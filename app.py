@@ -19,6 +19,10 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = tabtitle
 
+app.scripts.config.serve_locally = False
+app.scripts.append_script({'external_url': 'https://www.googletagmanager.com/gtag/js?id=UA-131327483-1 7'})
+app.scripts.append_script({'external_url': 'https://cdn.jsdelivr.net/gh/lppier/lppier.github.io/gtag.js 15'})
+
 colors = {
     'background': 'black',
     'text': 'white'
