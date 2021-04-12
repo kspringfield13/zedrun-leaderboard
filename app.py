@@ -237,7 +237,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         style = {'display':'flex'},
         children=[
     html.Div(
-        children=f'V1.2', style={
+        children=f'V1.3', style={
         'textAlign': 'left',
         'fontSize': '8px',
         'color': 'rgb(221, 235, 234)',
