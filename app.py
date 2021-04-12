@@ -25,7 +25,7 @@ app.scripts.append_script({'external_url': 'https://cdn.jsdelivr.net/gh/lppier/l
 
 colors = {
     'background': 'black',
-    'text': 'white'
+    'text': 'rgb(221, 235, 234)'
 }
 
 # add file to to directory
@@ -57,7 +57,7 @@ def generate_table(lb_df):
             'textAlign': 'center',
             'padding': '3px',
             'backgroundColor': 'rgb(10, 10, 10)',
-            'color': 'white',
+            'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
             'font_family': 'arial',
             'font_size': '12px',
@@ -95,7 +95,7 @@ def generate_table(lb_df):
             },
             {
                 'if': {'row_index': 'odd'},
-                'backgroundColor': 'rgb(86,89,87)',
+                'backgroundColor': 'rgb(69, 89, 88)',
             },
             {
                 'if': {
@@ -110,7 +110,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Placed %}} = {}'.format(lb_df['Placed %'].max()),
                     'column_id': 'Placed %'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
+                'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
             },
             {
@@ -118,7 +118,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Win %}} = {}'.format(lb_df['Win %'].max()),
                     'column_id': 'Win %'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
+                'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
             },
             {
@@ -126,7 +126,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Avg. Odds}} = {}'.format(lb_df['Avg. Odds'].min()),
                     'column_id': 'Avg. Odds'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
+                'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
             }
         ] +
@@ -195,20 +195,38 @@ wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
 wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
 wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
 
-tab_style = {
-    'borderBottom': '1px solid black',
+tab_style_t = {
+    'borderBottom': '2px solid black',
+    'borderTop': '1px solid black',
+    'borderLeft': '1.5px solid black',
+    'borderRight': '1.5px solid black',
+    'backgroundColor': 'rgb(69, 89, 88)',
+    'color': 'rgb(221, 235, 234)',
     'padding': '3px',
-    'fontWeight': 'bold'
+    'borderRadius': '15px'
+}
+
+tab_style_b = {
+    'borderBottom': '5px solid black',
+    'borderTop': '3px solid black',
+    'borderLeft': '3px solid black',
+    'borderRight': '3px solid black',
+    'backgroundColor': 'rgb(221, 235, 234)',
+    'color': 'black',
+    'padding': '3px',
+    'borderRadius': '15px'
 }
 
 tab_selected_style = {
-    'borderTop': '3px solid rgb(0, 255, 238)',
-    'borderBottom': '3px solid rgb(0, 255, 238)',
-    'borderLeft': '3px solid rgb(0, 255, 238)',
-    'borderRight': '3px solid rgb(0, 255, 238)',
+    'borderTop': '2px solid rgb(51, 204, 204)',
+    'borderBottom': '2px solid rgb(51, 204, 204)',
+    'borderLeft': '2px solid rgb(51, 204, 204)',
+    'borderRight': '2px solid rgb(51, 204, 204)',
     'backgroundColor': 'black',
-    'color': 'rgb(0, 255, 238)',
-    'padding': '3px'
+    'fontWeight': 'bold',
+    'color': 'rgb(51, 204, 204)',
+    'padding': '3px',
+    'borderRadius': '15px'
 }
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
@@ -297,7 +315,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-t1',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_t,
                 selected_style=tab_selected_style
             ),
             dcc.Tab(
@@ -305,7 +323,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-t2',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_t,
                 selected_style=tab_selected_style
             ),
     ]),
@@ -321,7 +339,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-1',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_b,
                 selected_style=tab_selected_style
             ),
             dcc.Tab(
@@ -329,14 +347,14 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-2',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_b,
                 selected_style=tab_selected_style
             ),
             dcc.Tab(
                 label='Class III',
                 value='tab-3', className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_b,
                 selected_style=tab_selected_style
             ),
             dcc.Tab(
@@ -344,7 +362,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-4',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_b,
                 selected_style=tab_selected_style
             ),
             dcc.Tab(
@@ -352,7 +370,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 value='tab-5',
                 className='custom-tab',
                 selected_className='custom-tab--selected',
-                style=tab_style,
+                style=tab_style_b,
                 selected_style=tab_selected_style
             ),
     ]),
