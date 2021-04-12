@@ -59,7 +59,7 @@ def generate_table(lb_df):
             'backgroundColor': 'rgb(10, 10, 10)',
             'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
-            'font_family': 'arial',
+            'fontFamily': 'geneva',
             'font_size': '12px',
             'backgroundColor': 'rgb(10, 10, 10)'
         },
@@ -71,7 +71,7 @@ def generate_table(lb_df):
             'padding': '3px',
             'backgroundColor': 'rgb(10, 10, 10)',
             'color': 'white',
-            'font_family': 'arial',
+            'font_family': 'geneva',
             'font_size': '12px'
         },
         style_header_conditional=[
@@ -196,37 +196,40 @@ wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
 wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
 
 tab_style_t = {
-    'borderBottom': '4px solid black',
+    'borderBottom': '3px solid black',
     'borderTop': '3px solid black',
     'borderLeft': '3px solid black',
     'borderRight': '3px solid black',
     'backgroundColor': 'rgb(69, 89, 88)',
     'color': 'rgb(221, 235, 234)',
     'padding': '3px',
-    'borderRadius': '15px'
+    'borderRadius': '15px',
+    'fontFamily': 'geneva'
 }
 
 tab_style_b = {
-    'borderBottom': '6px solid black',
+    'borderBottom': '3px solid black',
     'borderTop': '3px solid black',
     'borderLeft': '3px solid black',
     'borderRight': '3px solid black',
     'backgroundColor': 'rgb(221, 235, 234)',
     'color': 'black',
     'padding': '3px',
-    'borderRadius': '15px'
+    'borderRadius': '15px',
+    'fontFamily': 'geneva'
 }
 
 tab_selected_style = {
-    'borderTop': '2px solid rgb(51, 204, 204)',
-    'borderBottom': '2px solid rgb(51, 204, 204)',
-    'borderLeft': '2px solid rgb(51, 204, 204)',
-    'borderRight': '2px solid rgb(51, 204, 204)',
+    'borderTop': '3px solid rgb(51, 204, 204)',
+    'borderBottom': '3px solid rgb(51, 204, 204)',
+    'borderLeft': '3px solid rgb(51, 204, 204)',
+    'borderRight': '3px solid rgb(51, 204, 204)',
     'backgroundColor': 'black',
     'fontWeight': 'bold',
     'color': 'rgb(51, 204, 204)',
     'padding': '3px',
-    'borderRadius': '15px'
+    'borderRadius': '15px',
+    'fontFamily': 'geneva'
 }
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
@@ -240,7 +243,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': 'rgb(221, 235, 234)',
         'padding': '5px',
         'width': '49.5%',
-        'display': 'inline-block'
+        'display': 'inline-block',
+        'fontFamily': 'geneva'
     }), 
     html.Div(
         children=f'Created by: oWylee | Data updated: {updated}', style={
@@ -249,7 +253,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': 'rgb(221, 235, 234)',
         'padding': '5px',
         'width': '49.5%',
-        'display': 'inline-block'
+        'display': 'inline-block',
+        'fontFamily': 'geneva'
     })]
     ),
     html.Div(className='row',
@@ -264,14 +269,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                          'padding': '5px'
                      }),
             html.H1(
-                children='ZED.RUN LEADERBOARD',
+                children='ZED RUN LEADERBOARD',
                 style={'height': '35px',
                        'color': 'rgb(221, 235, 234)',
                        'backgroundColor':'black',
                        'padding': '5px',
                        'width': '100%',
                        'textAlign': 'center',
-                       'display': 'inline-block'
+                       'display': 'inline-block',
+                       'fontFamily': 'geneva'
                 }
             ),
             html.Img(src=app.get_asset_url('avi.png'),
@@ -292,7 +298,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 'color': 'rgb(221, 235, 234)',
                 'padding': '5px',
                 'width': '49.5%',
-                'display': 'inline-block'
+                'display': 'inline-block',
+                'fontFamily': 'geneva'
             }), 
             html.Div(
                 children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
@@ -301,7 +308,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 'color': 'rgb(221, 235, 234)',
                 'padding': '5px',
                 'width': '49.5%',
-                'display': 'inline-block'
+                'display': 'inline-block',
+                'fontFamily': 'geneva'
             })]
             ),
     dcc.Tabs(
