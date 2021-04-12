@@ -237,7 +237,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         children=f'V1.2', style={
         'textAlign': 'left',
         'fontSize': '8px',
-        'color': colors['text'],
+        'color': 'rgb(221, 235, 234)',
         'padding': '5px',
         'width': '49.5%',
         'display': 'inline-block'
@@ -246,7 +246,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         children=f'Created by: oWylee | Data updated: {updated}', style={
         'textAlign': 'right',
         'fontSize': '8px',
-        'color': colors['text'],
+        'color': 'rgb(221, 235, 234)',
         'padding': '5px',
         'width': '49.5%',
         'display': 'inline-block'
@@ -266,7 +266,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             html.H1(
                 children='ZED.RUN LEADERBOARD',
                 style={'height': '35px',
-                       'color': colors['text'],
+                       'color': 'rgb(221, 235, 234)',
                        'backgroundColor':'black',
                        'padding': '5px',
                        'width': '100%',
@@ -289,7 +289,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 children=f'2206 Horses *Ranked by Current Class & 20 Race Min. *Paid Races Only', style={
                 'textAlign': 'left',
                 'fontSize': '8px',
-                'color': colors['text'],
+                'color': 'rgb(221, 235, 234)',
                 'padding': '5px',
                 'width': '49.5%',
                 'display': 'inline-block'
@@ -298,7 +298,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
                 'textAlign': 'right',
                 'fontSize': '8px',
-                'color': colors['text'],
+                'color': 'rgb(221, 235, 234)',
                 'padding': '5px',
                 'width': '49.5%',
                 'display': 'inline-block'
