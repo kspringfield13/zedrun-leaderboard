@@ -236,7 +236,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
              style = {'display':'flex'},
              children=[
             html.Div(
-                children=f'1981 Horses *Ranked by Current Class & 20 Race Min. *Paid Races Only', style={
+                children=f'2206 Horses *Ranked by Current Class & 20 Race Min. *Paid Races Only', style={
                 'textAlign': 'left',
                 'fontSize': '8px',
                 'color': colors['text'],
