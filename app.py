@@ -32,6 +32,8 @@ colors = {
 updated = '4.11.2021 7:29pm EST'
 lb_df = pd.read_csv('zedrun_leaderboard-4.11.2021_7_29.csv')
 
+wh_df = pd.read_csv('zedrun_leaderboard-4.11.2021_7_29_whoshot.csv')
+
 def generate_table(lb_df):
     return dash_table.DataTable(
         id='table',
@@ -174,6 +176,25 @@ lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
 lb_df['Avg. Odds'] = round(lb_df['Avg. Odds'], 2)
 
+wh_df = wh_df[['name','gen','bloodline','breed_type','gender','stable_name',
+               'class','race_count','placed_pct','win_pct','odds','rank']]
+wh_df.rename(columns={'name':'Name',
+                      'gen':'Gen',
+                      'bloodline':'Bloodline',
+                      'breed_type':'Breed',
+                      'gender':'Gender',
+                      'stable_name':'Stable',
+                      'class':'Class',
+                      'race_count':'Races',
+                      'placed_pct':'Placed %',
+                      'win_pct':'Win %',
+                      'odds':'Avg. Odds',
+                      'rank':'Rank'}, inplace=True)
+
+wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
+wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
+wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
+
 tab_style = {
     'borderBottom': '1px solid black',
     'padding': '3px',
@@ -195,7 +216,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         style = {'display':'flex'},
         children=[
     html.Div(
-        children=f'V1.1', style={
+        children=f'V1.2', style={
         'textAlign': 'left',
         'fontSize': '8px',
         'color': colors['text'],
@@ -217,8 +238,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
              style = {'display':'flex',
                       'width': '100%'},
              children=[
+            html.Img(src=app.get_asset_url('avi.png'),
+                     style={
+                         'height': '63px',
+                         'width': '-20%',
+                         'display': 'inline-block',
+                         'padding': '5px'
+                     }),
             html.H1(
-                children='♘ ZED.RUN LEADERBOARD ♘',
+                children='ZED.RUN LEADERBOARD',
                 style={'height': '35px',
                        'color': colors['text'],
                        'backgroundColor':'black',
@@ -230,7 +258,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             ),
             html.Img(src=app.get_asset_url('avi.png'),
                      style={
-                         'height': '55px',
+                         'height': '63px',
                          'width': '-20%',
                          'display': 'inline-block',
                          'padding': '5px'
@@ -258,6 +286,30 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 'display': 'inline-block'
             })]
             ),
+    dcc.Tabs(
+        id="tabs-with-filter",
+        value='tab-1',
+        parent_className='custom-tabs',
+        className='custom-tabs-container',
+        children=[
+            dcc.Tab(
+                label='All-Time',
+                value='tab-t1',
+                className='custom-tab',
+                selected_className='custom-tab--selected',
+                style=tab_style,
+                selected_style=tab_selected_style
+            ),
+            dcc.Tab(
+                label="Who's Hot (Last 2wks)",
+                value='tab-t2',
+                className='custom-tab',
+                selected_className='custom-tab--selected',
+                style=tab_style,
+                selected_style=tab_selected_style
+            ),
+    ]),
+    html.Div(id='tabs-content-filter'),
     dcc.Tabs(
         id="tabs-with-classes",
         value='tab-1',
@@ -309,22 +361,41 @@ html.Div(id='datatable-interactivity-container'),
 ])
 
 @app.callback(Output('tabs-content-classes', 'children'),
-              Input('tabs-with-classes', 'value'))
-def render_content(tab):
-    if tab == 'tab-1':
+              Input('tabs-with-classes', 'value'),
+              Input('tabs-with-filter', 'value'))
+def render_content(tab,tab_fil):
+    if tab == 'tab-1' and tab_fil == 'tab-t1':
         lb_dff = lb_df[lb_df['Class'] == 1]
         return generate_table(lb_dff)
-    elif tab == 'tab-2':
+    elif tab == 'tab-2' and tab_fil == 'tab-t1':
         lb_dff = lb_df[lb_df['Class'] == 2]
         return generate_table(lb_dff)
-    elif tab == 'tab-3':
+    elif tab == 'tab-3' and tab_fil == 'tab-t1':
         lb_dff = lb_df[lb_df['Class'] == 3]
         return generate_table(lb_dff)
-    elif tab == 'tab-4':
+    elif tab == 'tab-4' and tab_fil == 'tab-t1':
         lb_dff = lb_df[lb_df['Class'] == 4]
         return generate_table(lb_dff)
-    elif tab == 'tab-5':
+    elif tab == 'tab-5' and tab_fil == 'tab-t1':
         lb_dff = lb_df[lb_df['Class'] == 5]
+        return generate_table(lb_dff)
+    elif tab == 'tab-1' and tab_fil == 'tab-t2':
+        lb_dff = wh_df[wh_df['Class'] == 1]
+        return generate_table(lb_dff)
+    elif tab == 'tab-2' and tab_fil == 'tab-t2':
+        lb_dff = wh_df[wh_df['Class'] == 2]
+        return generate_table(lb_dff)
+    elif tab == 'tab-3' and tab_fil == 'tab-t2':
+        lb_dff = wh_df[wh_df['Class'] == 3]
+        return generate_table(lb_dff)
+    elif tab == 'tab-4' and tab_fil == 'tab-t2':
+        lb_dff = wh_df[wh_df['Class'] == 4]
+        return generate_table(lb_dff)
+    elif tab == 'tab-5' and tab_fil == 'tab-t2':
+        lb_dff = wh_df[wh_df['Class'] == 5]
+        return generate_table(lb_dff)
+    else:
+        lb_dff = lb_df[lb_df['Class'] == 1]
         return generate_table(lb_dff)
 
 if __name__ == '__main__':
