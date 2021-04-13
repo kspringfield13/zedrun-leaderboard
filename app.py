@@ -12,16 +12,39 @@ import pandas as pd
 import plotly.express as px
 import dash_table
 
-tabtitle = 'ZED.RUN Leaderboard'
+tabtitle = 'ZΞD RUN Insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = tabtitle
+app.index_string = '''<!DOCTYPE html>
+<html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y88526KP3X"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-app.scripts.config.serve_locally = False
-app.scripts.append_script({'external_url': 'https://www.googletagmanager.com/gtag/js?id=UA-131327483-1 7'})
-app.scripts.append_script({'external_url': 'https://cdn.jsdelivr.net/gh/lppier/lppier.github.io/gtag.js 15'})
+  gtag('config', 'G-Y88526KP3X');
+  </script>
+{%metas%}
+<title>{%title%}</title>
+{%favicon%}
+{%css%}
+</head>
+<body>
+{%app_entry%}
+<footer>
+{%config%}
+{%scripts%}
+{%renderer%}
+</footer>
+</body>
+</html>
+'''
 
 colors = {
     'background': 'black',
