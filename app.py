@@ -573,7 +573,7 @@ def render_page_content(pathname):
                         ),
                         html.Div([
                             dcc.Graph(figure=fig),
-                        ], style = {'display': 'inline-block', 'width': '100%'})
+                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh'})
                         ])
                 ]
     elif pathname == "/page-2":
