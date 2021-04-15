@@ -60,15 +60,15 @@ lb_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_at.csv')
 wh_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_wh.csv')
 
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
-coats['Label'] = coats["Genesis Count"].astype(str) +" Gen | "+ coats["Horse Count"].astype(str) +" Tot"
+coats['Label'] = coats["Horse Count"].astype(str)
 
-color_map = dict(zip(coats.Coat, coats.hex_color))
+color_map = dict(zip(coats.Coat, coats['Hex Color']))
 color_map['(?)'] = '#27282A'
 
-fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat', 'Label'], values='Horse Count', color='Coat',
+fig = px.treemap(coats, path=['Breed','Color Group', 'Color Box', 'Coat', 'Label'], values='Horse Count', color='Coat',
                   color_discrete_map=color_map, hover_name='Coat',height=900)
 
-fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',margin=dict(l=30,r=0,b=0,t=0))
+fig.update_layout(paper_bgcolor='rgb(69, 89, 88)',margin=dict(l=0,r=0,b=0,t=0))
 
 
 def generate_table(lb_df):
@@ -571,7 +571,7 @@ def render_page_content(pathname):
                         ),
                         html.Div([
                             dcc.Graph(figure=fig),
-                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh'})
+                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'})
                         ])
                 ]
     elif pathname == "/page-2":
