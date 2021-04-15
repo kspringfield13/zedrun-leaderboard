@@ -76,7 +76,7 @@ def generate_table(lb_df):
         fixed_rows={'headers': True, 'data': 0},
         style_table={
             # 'border': '1px solid rgb(221, 235, 234)',
-            'overflow': 'hidden',
+            'overflowX': 'auto',
             "height": "90vh", "maxHeight": "90vh"
         },
         style_header={
@@ -88,7 +88,7 @@ def generate_table(lb_df):
             'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
             'fontFamily': 'verdana',
-            'font_size': '12px',
+            'font_size': '10px',
             'backgroundColor': 'black'
         },
         style_data={
@@ -98,9 +98,9 @@ def generate_table(lb_df):
             'textAlign': 'center',
             'padding': '3px',
             'backgroundColor': 'rgb(10, 10, 10)',
-            'color': 'white',
+            'color': 'rgb(221, 235, 234)',
             'font_family': 'verdana',
-            'font_size': '12px'
+            'font_size': '10px'
         },
         style_header_conditional=[
         {
@@ -113,13 +113,13 @@ def generate_table(lb_df):
             'if': {'column_id': 'Name'},
             'textAlign': 'right',
             'fontWeight': 'bold',
-            'fontSize': '14px'
+            'fontSize': '12px'
             },
             {
             'if': {'column_id': 'Rank'},
             'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '15px'
+            'fontSize': '14px'
             },
             {
                 'if': {'row_index': 'odd'},
@@ -130,7 +130,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Races}} = {}'.format(lb_df['Races'].max()),
                     'column_id': 'Races'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
+                'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
             },
             {
@@ -151,8 +151,8 @@ def generate_table(lb_df):
             },
             {
                 'if': {
-                    'filter_query': '{{Avg. Odds}} = {}'.format(lb_df['Avg. Odds'].min()),
-                    'column_id': 'Avg. Odds'
+                    'filter_query': '{{Odds}} = {}'.format(lb_df['Odds'].min()),
+                    'column_id': 'Odds'
                 },
                 'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
@@ -178,9 +178,12 @@ def generate_table(lb_df):
             }
             for i in lb_df['Rank'].nsmallest(10)
         ],
+        style_cell={
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'minWidth': '25px', 'width': '30px', 'maxWidth': '75px'
+        } ,
         style_cell_conditional=[
-        {'if': {'column_id': 'Name'},
-         'width': '100px'},
         {'if': {'column_id': 'Class'},
             'display': 'none'},
         {'if': {'column_id': 'Gender'},
@@ -201,12 +204,12 @@ lb_df.rename(columns={'name':'Name',
                       'race_count':'Races',
                       'placed_pct':'Placed %',
                       'win_pct':'Win %',
-                      'odds':'Avg. Odds',
+                      'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
 
 lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
-lb_df['Avg. Odds'] = round(lb_df['Avg. Odds'], 2)
+lb_df['Odds'] = round(lb_df['Odds'], 2)
 
 wh_df = wh_df[['name','gen','bloodline','breed_type','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
@@ -220,12 +223,12 @@ wh_df.rename(columns={'name':'Name',
                       'race_count':'Races',
                       'placed_pct':'Placed %',
                       'win_pct':'Win %',
-                      'odds':'Avg. Odds',
+                      'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
 
 wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
 wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
-wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
+wh_df['Odds'] = round(wh_df['Odds'], 2)
 
 tab_style_t = {
     'borderBottom': '3px solid black',
@@ -286,29 +289,33 @@ SIDEBAR_STYLE = {
     "top": 0,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    # "width": "16rem",
+    "width": "12rem",
     "padding": "2rem 1rem",
-    "background-color": "rgb(221, 235, 234)",
+    "background-color": "#27282A",
+    "color":"rgb(221, 235, 234)"
 }
 
 CONTENT_STYLE = {
-    "margin-left": "18rem",
-    "margin-right": "2rem",
-    "padding": "2rem 1rem",
+    "margin-left": "13rem",
+    "margin-right": "1rem",
+    "padding": "1rem 1rem",
 }
 
 sidebar = html.Div(
     [
-        html.H2("Sidebar", className="display-4"),
+        html.H2("ZΞD RUN", className="display-4", style={"fontSize":"24px",
+                                                         'textAlign': 'center'}),
+        html.H2("Insights", className="display-4", style={"fontSize":"16px",
+                                                          'textAlign': 'center'}),
         html.Hr(),
-        html.P(
-            "Number of students per education level", className="lead"
-        ),
         dbc.Nav(
             [
-                dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("Page 1", href="/page-1", active="exact"),
-                dbc.NavLink("Page 2", href="/page-2", active="exact"),
+                dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
+                                                                            'textAlign': 'center'}),
+                dbc.NavLink("HORSΞ COATS", href="/page-1", active="exact", style={"color":"rgb(221, 235, 234)",
+                                                                                  'textAlign': 'center'}),
+                # dbc.NavLink("COMING SOON", href="/page-2", active="exact", style={"color":"rgb(221, 235, 234)"})
             ],
             vertical=True,
             pills=True,
@@ -330,39 +337,35 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     [Input("url", "pathname")]
 )
 def render_page_content(pathname):
+    # eventually create a home landing page and push this down to /leaderboard
     if pathname == "/":
-        return [
-                html.Div(className='row',
-                    style = {'display':'flex'},
-                    children=[
-                html.Div(
-                    children=f'Data updated: {updated}', style={
-                    'textAlign': 'right',
-                    'fontSize': '8px',
-                    'color': 'rgb(221, 235, 234)',
-                    'padding': '5px',
-                    'width': '100%',
-                    'display': 'inline-block',
-                    'fontFamily': 'verdana'
-                })]
-                ),
-                html.Div(className='row',
+        return [html.Div(className='row',
                         style = {'display':'flex',
                                 'width': '100%'},
                         children=[
                         html.H1(
-                            children='ZΞD RUN LΞADΞRBOARD',
+                            children='LΞADΞRBOARD',
                             style={'height': '55px',
                                 'color': 'rgb(221, 235, 234)',
                                 'backgroundColor':'black',
-                                'padding': '5px',
+                                'paddingTop': '5px',
                                 'width': '100%',
                                 'textAlign': 'center',
                                 'fontSize': '36px',
                                 'display': 'inline-block',
                                 'fontFamily': 'verdana'
                             }
-                        )
+                        ),
+                        html.Div(
+                            children=f'Data updated: {updated} | 3841 Horses', style={
+                            'textAlign': 'right',
+                            'fontSize': '8px',
+                            'color': 'rgb(221, 235, 234)',
+                            'padding': '1px',
+                            'width': '100%',
+                            'display': 'inline-block',
+                            'fontFamily': 'verdana'
+                        })
                         ]),
                 dcc.Tabs(
                     id="tabs-with-filter",
@@ -439,8 +442,24 @@ def render_page_content(pathname):
                 ]
     elif pathname == "/page-1":
         return [
-                html.H1('Test page-1',
-                        style={'textAlign':'center'})
+                html.Div(className='row',
+                        style = {'display':'flex',
+                                'width': '100%'},
+                        children=[
+                        html.H1(
+                            children='HORSΞ COATS',
+                            style={'height': '55px',
+                                'color': 'rgb(221, 235, 234)',
+                                'backgroundColor':'black',
+                                'padding': '5px',
+                                'width': '100%',
+                                'textAlign': 'center',
+                                'fontSize': '36px',
+                                'display': 'inline-block',
+                                'fontFamily': 'verdana'
+                            }
+                        )
+                        ])
                 ]
     elif pathname == "/page-2":
         return [
