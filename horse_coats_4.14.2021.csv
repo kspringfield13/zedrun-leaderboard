@@ -1,0 +1,103 @@
+,color_group,Color Box,Coat,hex_color,Horse Count,Genesis Count,Rarity
+0,Unknown,Unknown,Fortune,#FFC834,1,1,100.0
+1,Neptune,Super Rare,Aggressive Azure,#F0FFFF,43,43,5.0
+2,Earth,Common,Dark Lava,#483C32,107,58,10.0
+3,Earth,Common,Sienna,#3C1414,138,76,10.0
+4,Mystical,Super Rare,Papaya Whip,#FFEFD5,142,139,5.0
+5,Earth,Super Rare,Honeydew,#E0EEE0,149,146,5.0
+6,Earth,Common,Copper Penny,#AD6F69,150,90,10.0
+7,Wild,Super Rare,Gainsboro,#33CCCC,151,146,5.0
+8,Earth,Common,Deep Taupe,#7E5E60,152,99,10.0
+9,Mystical,Common,Cyclamen,#F56FA1,152,79,10.0
+2,Earth,Common,Cinereous,#98817B,154,98,10.0
+10,Earth,Common,Brown Sugar,#AF6E4D,154,99,10.0
+12,Earth,Common,Field Drab,#6C541E,155,90,10.0
+13,Earth,Common,Coyote Brown,#81613C,156,85,10.0
+14,Mystical,Common,Oval Orchid,#DA70D6,157,92,9.0
+15,Earth,Common,Champagne Papi,#F1DDCF,158,104,10.0
+16,Fiery,Common,Fire Opal,#E95C4B,159,96,10.0
+17,Classic,Super Rare,Cornsilk,#FFF8DC,160,151,5.0
+18,Fiery,Common,Atomic Tangerine,#FF9966,161,79,9.0
+19,Fiery,Super Rare,Peach Puff,#FFDAB9,161,154,5.0
+21,Neptune,Common,Celestial Blue,#4997D0,162,85,10.0
+20,Mystical,Common,Cinnamon Satin,#CD607E,162,83,10.0
+22,Neptune,Common,Air Superiority Blue,#72A0C1,163,80,9.0
+23,Fiery,Common,Burnt Umber,#8A3324,164,87,10.0
+24,Neptune,Common,Egyptian Blue,#1034A6,166,86,10.0
+25,Mystical,Common,Cotton Candy,#FFBCD9,166,84,10.0
+26,Mystical,Common,Eminence,#6C3082,166,92,10.0
+27,Classic,Common,Café Au Lait,#A67B5B,168,79,10.0
+28,Mystical,Common,Mystic Maroon,#B03060,168,91,9.0
+29,Mystical,Common,China Rose,#A8516E,168,94,10.0
+30,Fiery,Common,Crimson Tide,#DC143C,169,87,10.0
+31,Fiery,Common,Burnt Sienna,#E97451,169,86,10.0
+32,Fiery,Common,English Vermillion,#CC474B,169,104,10.0
+3,Wild,Common,Dartmouth Green,#00703C,171,100,10.0
+34,Neptune,Common,Cerulean Frost,#6D9BC3,171,91,10.0
+35,Fiery,Common,Fuzzy Wuzzy,#CC6666,172,90,10.0
+37,Neptune,Common,Bleu De France,#318CE7,173,104,10.0
+38,Wild,Common,AO,#008000,173,101,9.0
+39,Mystical,Common,Fandango,#B53389,173,82,10.0
+36,Mystical,Common,Thistle,#D8BFD8,173,101,9.0
+1,Fiery,Common,Big Dip O’Ruby,#9C2542,175,97,9.0
+41,Mystical,Common,Fiery Rose,#FF5470,176,93,10.0
+42,Fiery,Common,Cinnabar,#E34234,176,98,10.0
+43,Wild,Common,Cal Poly Pomona,#1E4D2B,176,107,10.0
+44,Mystical,Common,Suave Mauve,#D473D4,176,95,10.0
+45,Mystical,Common,Byzantine,#BD33A4,177,103,10.0
+46,Mystical,Common,Byzantium,#702963,177,90,10.0
+47,Classic,Common,Banana Mania,#FAE7B5,178,79,9.0
+50,Fiery,Common,Alizarin Crimson,#E32636,178,102,9.0
+49,Neptune,Common,Azure,#007FFF,178,91,10.0
+48,Mystical,Common,Baker-Miller Pink,#FF91AF,178,97,10.0
+51,Mystical,Common,Electric Violet,#8F00FF,179,107,10.0
+57,Fiery,Common,Bittersweet Shimmer,#BF4F51,180,105,9.0
+54,Moon,Common,Shadow Fighter,#BFAFB2,180,98,10.0
+56,Classic,Common,Buff Gold,#F0DC82,180,94,10.0
+52,Mystical,Common,Destiny,#872657,180,108,10.0
+55,Neptune,Common,Cosmic Cobalt,#2E2D88,180,107,10.0
+53,Wild,Common,Dark Moss,#4A5D23,180,89,10.0
+58,Fiery,Common,Colombo Spice,#FF3800,181,113,10.0
+60,Wild,Common,Feldgrau,#4D5D53,181,97,10.0
+59,Classic,Common,Arylide Yellow,#E9D66B,181,104,9.0
+61,Classic,Common,Hairy Canary,#FFFF99,183,82,10.0
+62,Classic,Common,Flex,#EEDC82,183,95,10.0
+63,Classic,Common,Fawn,#E5AA70,184,97,10.0
+64,Neptune,Common,Bondi Blue,#0095B6,184,105,10.0
+65,Classic,Common,Chrome Yellow,#FFA700,186,109,10.0
+66,Mystical,Common,Dark Byzantium,#5D3954,187,106,10.0
+67,Wild,Common,Space Sparkle,#4A646C,188,117,10.0
+68,Mystical,Common,China Pink,#DE6FA1,191,102,10.0
+69,Mystical,Common,Amethyst,#9966CC,195,106,10.0
+70,Moon,Common,Antique White,#FAEBD7,196,111,9.0
+71,Moon,Rare,Ghost White,#FFFFFF,198,139,7.0
+72,Classic,Common,Desert Sand,#EDC9AF,200,93,10.0
+74,Wild,Common,Caribbean Green,#00CC99,203,104,10.0
+73,Moon,Common,Battle Horse Gray,#848482,203,114,9.0
+75,Classic,Common,Cosmic Latte,#FFF8E7,205,100,10.0
+76,Moon,Common,Alabaster,#F2F0E6,210,102,10.0
+77,Moon,Common,Anti-Flash White,#F2F3F4,211,106,9.0
+78,Moon,Rare,White Smoke,#F5F5F5,213,137,7.0
+79,Neptune,Common,Bright Cerulean,#1DACD6,215,105,10.0
+80,Moon,Common,Midnight Black,#000000,222,130,10.0
+81,Earth,Common,Taupe,#483C32,225,140,10.0
+82,Earth,Rare,Antique Brass,#CD9575,228,78,8.0
+83,Moon,Common,Black Chocolate,#1B1811,228,124,10.0
+84,Neptune,Rare,Royal Blue,#4169E1,232,117,7.0
+85,Neptune,Rare,Powder Blue,#B0E0E6,247,126,7.0
+86,Neptune,Rare,Alice Blue,#F0F8FF,256,130,7.0
+87,Neptune,Rare,Absolute Zero,#0048BA,265,118,8.0
+88,Fiery,Rare,Firebrick,#B22222,265,127,8.0
+89,Neptune,Rare,Cadet Blue,#5F9EA0,272,130,7.0
+90,Neptune,Common,Azure Mist,#F0FFFF,275,197,9.0
+91,Earth,Rare,Rosy Brown,#BC8F8F,277,127,7.0
+92,Classic,Rare,Golden Rod,#EEE8AA,281,125,7.0
+93,Moon,Super Rare,Arctic Snow,#FFFAFA,291,154,6.0
+94,Moon,Super Rare,Stronghold Ivory,#CDCDC1,295,137,4.0
+95,Fiery,Rare,Coral Wave,#FF7F50,296,130,7.0
+96,Moon,Super Rare,Slate Gray,#708090,297,142,4.0
+97,Classic,Rare,Burlywood,#DEB887,301,138,8.0
+98,Mystical,Rare,Pale Violet,#DB7093,306,127,7.0
+99,Mystical,Rare,Misty Rose,#FFE4E1,312,133,7.0
+100,Wild,Rare,Chartreuse,#7FFF00,348,138,7.0
+101,Wild,Rare,Sir Aquamarine,#7FFFD4,353,122,7.0

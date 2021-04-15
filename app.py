@@ -4,6 +4,7 @@ import io, os
 import plotly.graph_objs as go
 
 import dash
+import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
@@ -13,7 +14,7 @@ import plotly.express as px
 import dash_table
 
 tabtitle = 'ZΞD RUN Insights'
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
@@ -57,6 +58,16 @@ lb_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_at.csv')
 
 wh_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_wh.csv')
 
+coats = pd.read_csv('horse_coats_4.14.2021.csv')
+
+color_map = dict(zip(coats.Coat, coats.hex_color))
+color_map['(?)'] = '#27282A'
+
+fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat'], values='Horse Count', color='Coat',
+                  color_discrete_map=color_map, hover_name='Coat',height=817)
+fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',margin=dict(l=30,r=0,b=0,t=0))
+
+
 def generate_table(lb_df):
     return dash_table.DataTable(
         id='table',
@@ -72,19 +83,23 @@ def generate_table(lb_df):
         # export_format='xlsx',
         # export_headers='display',
         page_action='none',
-        fixed_rows={'headers': False},
+        fixed_rows={'headers': True, 'data': 0},
+        style_table={
+            # 'border': '1px solid rgb(221, 235, 234)',
+            'overflowX': 'auto',
+            "height": "90vh", "maxHeight": "90vh"
+        },
         style_header={
             'height': 'auto',
             'overflow': 'hidden',
             'textOverflow': 'ellipsis',
             'textAlign': 'center',
             'padding': '3px',
-            'backgroundColor': 'rgb(10, 10, 10)',
             'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
             'fontFamily': 'verdana',
-            'font_size': '12px',
-            'backgroundColor': 'rgb(10, 10, 10)'
+            'font_size': '10px',
+            'backgroundColor': 'black'
         },
         style_data={
             'height': 'auto',
@@ -93,9 +108,9 @@ def generate_table(lb_df):
             'textAlign': 'center',
             'padding': '3px',
             'backgroundColor': 'rgb(10, 10, 10)',
-            'color': 'white',
+            'color': 'rgb(221, 235, 234)',
             'font_family': 'verdana',
-            'font_size': '12px'
+            'font_size': '10px'
         },
         style_header_conditional=[
         {
@@ -108,13 +123,13 @@ def generate_table(lb_df):
             'if': {'column_id': 'Name'},
             'textAlign': 'right',
             'fontWeight': 'bold',
-            'fontSize': '14px'
+            'fontSize': '12px'
             },
             {
             'if': {'column_id': 'Rank'},
             'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '15px'
+            'fontSize': '14px'
             },
             {
                 'if': {'row_index': 'odd'},
@@ -125,7 +140,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Races}} = {}'.format(lb_df['Races'].max()),
                     'column_id': 'Races'
                 },
-                'backgroundColor': 'rgb(22, 245, 230)',
+                'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
             },
             {
@@ -146,8 +161,8 @@ def generate_table(lb_df):
             },
             {
                 'if': {
-                    'filter_query': '{{Avg. Odds}} = {}'.format(lb_df['Avg. Odds'].min()),
-                    'column_id': 'Avg. Odds'
+                    'filter_query': '{{Odds}} = {}'.format(lb_df['Odds'].min()),
+                    'column_id': 'Odds'
                 },
                 'backgroundColor': 'rgb(51, 204, 204)',
                 'color': 'black'
@@ -173,9 +188,16 @@ def generate_table(lb_df):
             }
             for i in lb_df['Rank'].nsmallest(10)
         ],
+        style_cell={
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'minWidth': '25px', 'width': '30px', 'maxWidth': '75px'
+        } ,
         style_cell_conditional=[
-        {'if': {'column_id': 'Name'},
-         'width': '100px'}
+        {'if': {'column_id': 'Class'},
+            'display': 'none'},
+        {'if': {'column_id': 'Gender'},
+            'display': 'none'},
         ],
         style_as_list_view=True
     )
@@ -192,12 +214,12 @@ lb_df.rename(columns={'name':'Name',
                       'race_count':'Races',
                       'placed_pct':'Placed %',
                       'win_pct':'Win %',
-                      'odds':'Avg. Odds',
+                      'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
 
 lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
-lb_df['Avg. Odds'] = round(lb_df['Avg. Odds'], 2)
+lb_df['Odds'] = round(lb_df['Odds'], 2)
 
 wh_df = wh_df[['name','gen','bloodline','breed_type','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
@@ -211,12 +233,12 @@ wh_df.rename(columns={'name':'Name',
                       'race_count':'Races',
                       'placed_pct':'Placed %',
                       'win_pct':'Win %',
-                      'odds':'Avg. Odds',
+                      'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
 
 wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
 wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
-wh_df['Avg. Odds'] = round(wh_df['Avg. Odds'], 2)
+wh_df['Odds'] = round(wh_df['Odds'], 2)
 
 tab_style_t = {
     'borderBottom': '3px solid black',
@@ -227,11 +249,12 @@ tab_style_t = {
     'color': 'rgb(221, 235, 234)',
     'padding': '3px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana'
+    'fontFamily': 'verdana',
+    'margin-bottom': '4px'
 }
 
 tab_style_b = {
-    'borderBottom': '3px solid black',
+    'borderBottom': '4px solid black',
     'borderTop': '3px solid black',
     'borderLeft': '3px solid black',
     'borderRight': '3px solid black',
@@ -239,7 +262,8 @@ tab_style_b = {
     'color': 'black',
     'padding': '3px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana'
+    'fontFamily': 'verdana',
+    'margin-bottom': '4px'
 }
 
 tab_selected_style = {
@@ -252,162 +276,217 @@ tab_selected_style = {
     'color': 'rgb(51, 204, 204)',
     'padding': '3px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana'
+    'fontFamily': 'verdana',
+    'margin-bottom': '4px'
 }
 
+tab_selected_style_b = {
+    'borderTop': '3px solid rgb(51, 204, 204)',
+    'borderBottom': '3px solid rgb(51, 204, 204)',
+    'borderLeft': '3px solid rgb(51, 204, 204)',
+    'borderRight': '3px solid rgb(51, 204, 204)',
+    'backgroundColor': 'black',
+    'fontWeight': 'bold',
+    'color': 'rgb(51, 204, 204)',
+    'padding': '3px',
+    'borderRadius': '15px',
+    'fontFamily': 'verdana',
+    'margin-bottom': '4px'
+}
+
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": 0,
+    "left": 0,
+    "bottom": 0,
+    # "width": "16rem",
+    "width": "12rem",
+    "padding": "2rem 1rem",
+    "background-color": "#27282A",
+    "color":"rgb(221, 235, 234)"
+}
+
+CONTENT_STYLE = {
+    "margin-left": "13rem",
+    "margin-right": "1rem",
+    "padding": "1rem 1rem",
+}
+
+sidebar = html.Div(
+    [
+        html.H2("ZΞD RUN", className="display-4", style={"fontSize":"24px",
+                                                         'textAlign': 'center'}),
+        html.H2("Insights", className="display-4", style={"fontSize":"16px",
+                                                          'textAlign': 'center'}),
+        html.Hr(),
+        dbc.Nav(
+            [
+                dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
+                                                                            'textAlign': 'center'}),
+                dbc.NavLink("HORSΞ COATS", href="/page-1", active="exact", style={"color":"rgb(221, 235, 234)",
+                                                                                  'textAlign': 'center'}),
+                # dbc.NavLink("COMING SOON", href="/page-2", active="exact", style={"color":"rgb(221, 235, 234)"})
+            ],
+            vertical=True,
+            pills=True,
+        ),
+    ],
+    style=SIDEBAR_STYLE,
+)
+
+content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
+
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.Div(className='row',
-        style = {'display':'flex'},
-        children=[
-    html.Div(
-        children=f'V1.3', style={
-        'textAlign': 'left',
-        'fontSize': '8px',
-        'color': 'rgb(221, 235, 234)',
-        'padding': '5px',
-        'width': '49.5%',
-        'display': 'inline-block',
-        'fontFamily': 'verdana'
-    }), 
-    html.Div(
-        children=f'Created by: oWylee | Data updated: {updated}', style={
-        'textAlign': 'right',
-        'fontSize': '8px',
-        'color': 'rgb(221, 235, 234)',
-        'padding': '5px',
-        'width': '49.5%',
-        'display': 'inline-block',
-        'fontFamily': 'verdana'
-    })]
-    ),
-    html.Div(className='row',
-             style = {'display':'flex',
-                      'width': '100%'},
-             children=[
-            html.Img(src=app.get_asset_url('avi.png'),
-                     style={
-                         'height': '63px',
-                         'width': '-20%',
-                         'display': 'inline-block',
-                         'padding': '5px'
-                     }),
-            html.H1(
-                children='ZΞD RUN LΞADΞRBOARD',
-                style={'height': '35px',
-                       'color': 'rgb(221, 235, 234)',
-                       'backgroundColor':'black',
-                       'padding': '5px',
-                       'width': '100%',
-                       'textAlign': 'center',
-                       'display': 'inline-block',
-                       'fontFamily': 'verdana'
-                }
-            ),
-            html.Img(src=app.get_asset_url('avi.png'),
-                     style={
-                         'height': '63px',
-                         'width': '-20%',
-                         'display': 'inline-block',
-                         'padding': '5px'
-                     })
-            ]),
-    html.Div(className='row',
-             style = {'display':'flex'},
-             children=[
-            html.Div(
-                children=f'3570 Horses *Ranked by Current Class & 20-AT|10-WH Race Min. *Paid Races Only', style={
-                'textAlign': 'left',
-                'fontSize': '8px',
-                'color': 'rgb(221, 235, 234)',
-                'padding': '5px',
-                'width': '49.5%',
-                'display': 'inline-block',
-                'fontFamily': 'verdana'
-            }), 
-            html.Div(
-                children=f'ETH Donations | 0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07', style={
-                'textAlign': 'right',
-                'fontSize': '8px',
-                'color': 'rgb(221, 235, 234)',
-                'padding': '5px',
-                'width': '49.5%',
-                'display': 'inline-block',
-                'fontFamily': 'verdana'
-            })]
-            ),
-    dcc.Tabs(
-        id="tabs-with-filter",
-        value='tab-1',
-        parent_className='custom-tabs',
-        className='custom-tabs-container',
-        children=[
-            dcc.Tab(
-                label='All-Time',
-                value='tab-t1',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_t,
-                selected_style=tab_selected_style
-            ),
-            dcc.Tab(
-                label="Who's Hot (Last 2wks)",
-                value='tab-t2',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_t,
-                selected_style=tab_selected_style
-            ),
-    ]),
-    html.Div(id='tabs-content-filter'),
-    dcc.Tabs(
-        id="tabs-with-classes",
-        value='tab-1',
-        parent_className='custom-tabs',
-        className='custom-tabs-container',
-        children=[
-            dcc.Tab(
-                label='Class I',
-                value='tab-1',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_b,
-                selected_style=tab_selected_style
-            ),
-            dcc.Tab(
-                label='Class II',
-                value='tab-2',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_b,
-                selected_style=tab_selected_style
-            ),
-            dcc.Tab(
-                label='Class III',
-                value='tab-3', className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_b,
-                selected_style=tab_selected_style
-            ),
-            dcc.Tab(
-                label='Class IV',
-                value='tab-4',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_b,
-                selected_style=tab_selected_style
-            ),
-            dcc.Tab(
-                label='Class V',
-                value='tab-5',
-                className='custom-tab',
-                selected_className='custom-tab--selected',
-                style=tab_style_b,
-                selected_style=tab_selected_style
-            ),
-    ]),
-html.Div(id='tabs-content-classes'),
-html.Div(id='datatable-interactivity-container'),
+    dcc.Location(id="url"),
+    sidebar,
+    content
 ])
+
+@app.callback(
+    Output("page-content", "children"),
+    [Input("url", "pathname")]
+)
+def render_page_content(pathname):
+    # eventually create a home landing page and push this down to /leaderboard
+    if pathname == "/":
+        return [html.Div(className='row',
+                        style = {'display':'flex',
+                                'width': '100%'},
+                        children=[
+                        html.H1(
+                            children='LΞADΞRBOARD',
+                            style={'height': '55px',
+                                'color': 'rgb(221, 235, 234)',
+                                'backgroundColor':'black',
+                                'paddingTop': '5px',
+                                'width': '100%',
+                                'textAlign': 'center',
+                                'fontSize': '36px',
+                                'display': 'inline-block',
+                                'fontFamily': 'verdana'
+                            }
+                        ),
+                        html.Div(
+                            children=f'Data updated: {updated} | 3841 Horses', style={
+                            'textAlign': 'right',
+                            'fontSize': '8px',
+                            'color': 'rgb(221, 235, 234)',
+                            'padding': '1px',
+                            'width': '100%',
+                            'display': 'inline-block',
+                            'fontFamily': 'verdana'
+                        })
+                        ]),
+                dcc.Tabs(
+                    id="tabs-with-filter",
+                    value='tab-1',
+                    parent_className='custom-tabs',
+                    className='custom-tabs-container',
+                    children=[
+                        dcc.Tab(
+                            label='All-Time',
+                            value='tab-t1',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_t,
+                            selected_style=tab_selected_style
+                        ),
+                        dcc.Tab(
+                            label="Who's Hot (Last 2wks)",
+                            value='tab-t2',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_t,
+                            selected_style=tab_selected_style
+                        ),
+                ]),
+                html.Div(id='tabs-content-filter'),
+                dcc.Tabs(
+                    id="tabs-with-classes",
+                    value='tab-1',
+                    parent_className='custom-tabs',
+                    className='custom-tabs-container',
+                    children=[
+                        dcc.Tab(
+                            label='Class I',
+                            value='tab-1',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class II',
+                            value='tab-2',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class III',
+                            value='tab-3', className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class IV',
+                            value='tab-4',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class V',
+                            value='tab-5',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                ]),
+                html.Div(id='tabs-content-classes'),
+                html.Div(id='datatable-interactivity-container')
+                ]
+    elif pathname == "/page-1":
+        return [
+                html.Div(className='row',
+                        style = {'display':'flex',
+                                'width': '100%'},
+                        children=[
+                        html.H1(
+                            children='HORSΞ COATS',
+                            style={'height': '55px',
+                                'color': 'rgb(221, 235, 234)',
+                                'backgroundColor':'black',
+                                'padding': '5px',
+                                'width': '100%',
+                                'textAlign': 'center',
+                                'fontSize': '36px',
+                                'display': 'inline-block',
+                                'fontFamily': 'verdana'
+                            }
+                        ),
+                        html.Div([
+                            dcc.Graph(figure=fig),
+                        ], style = {'display': 'inline-block', 'width': '100%'})
+                        ])
+                ]
+    elif pathname == "/page-2":
+        return [
+                html.H1('Test page-2',
+                        style={'textAlign':'center'})
+                ]
+    # If the user tries to reach a different page, return a 404 message
+    return dbc.Jumbotron(
+        [
+            html.H1("404: Not found", className="text-danger"),
+            html.Hr(),
+            html.P(f"The pathname {pathname} was not recognised..."),
+        ]
+    )
 
 @app.callback(Output('tabs-content-classes', 'children'),
               Input('tabs-with-classes', 'value'),
