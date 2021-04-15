@@ -318,7 +318,7 @@ sidebar = html.Div(
                                                          'textAlign': 'center'}),
         html.H2("Insights", className="display-4", style={"fontSize":"16px",
                                                           'textAlign': 'center'}),
-        html.Hr(),
+        html.Hr(style={'backgroundColor':'rgb(69, 89, 88)'}),
         dbc.Nav(
             [
                 dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
