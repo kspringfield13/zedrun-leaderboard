@@ -53,10 +53,10 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.13.2021 7:30pm EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_at.csv')
+updated = '4.14.2021 7:30pm EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_at.csv')
 
-wh_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_wh.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_wh.csv')
 
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 
@@ -323,7 +323,7 @@ sidebar = html.Div(
             [
                 dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
                                                                             'textAlign': 'center'}),
-                dbc.NavLink("HORSΞ COATS", href="/page-1", active="exact", style={"color":"rgb(221, 235, 234)",
+                dbc.NavLink("HORSΞ COATS", href="/coats", active="exact", style={"color":"rgb(221, 235, 234)",
                                                                                   'textAlign': 'center'}),
                 # dbc.NavLink("COMING SOON", href="/page-2", active="exact", style={"color":"rgb(221, 235, 234)"})
             ],
@@ -450,7 +450,109 @@ def render_page_content(pathname):
                 html.Div(id='tabs-content-classes'),
                 html.Div(id='datatable-interactivity-container')
                 ]
-    elif pathname == "/page-1":
+    if pathname == "/leaderboard":
+        return [html.Div(className='row',
+                        style = {'display':'flex',
+                                'width': '100%'},
+                        children=[
+                        html.H1(
+                            children='LΞADΞRBOARD',
+                            style={'height': '55px',
+                                'color': 'rgb(221, 235, 234)',
+                                'backgroundColor':'black',
+                                'paddingTop': '5px',
+                                'width': '100%',
+                                'textAlign': 'center',
+                                'fontSize': '36px',
+                                'display': 'inline-block',
+                                'fontFamily': 'verdana'
+                            }
+                        ),
+                        html.Div(
+                            children=f'Data updated: {updated} | 3841 Horses', style={
+                            'textAlign': 'right',
+                            'fontSize': '8px',
+                            'color': 'rgb(221, 235, 234)',
+                            'padding': '1px',
+                            'width': '100%',
+                            'display': 'inline-block',
+                            'fontFamily': 'verdana'
+                        })
+                        ]),
+                dcc.Tabs(
+                    id="tabs-with-filter",
+                    value='tab-1',
+                    parent_className='custom-tabs',
+                    className='custom-tabs-container',
+                    children=[
+                        dcc.Tab(
+                            label='All-Time',
+                            value='tab-t1',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_t,
+                            selected_style=tab_selected_style
+                        ),
+                        dcc.Tab(
+                            label="Who's Hot (Last 2wks)",
+                            value='tab-t2',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_t,
+                            selected_style=tab_selected_style
+                        ),
+                ]),
+                html.Div(id='tabs-content-filter'),
+                dcc.Tabs(
+                    id="tabs-with-classes",
+                    value='tab-1',
+                    parent_className='custom-tabs',
+                    className='custom-tabs-container',
+                    children=[
+                        dcc.Tab(
+                            label='Class I',
+                            value='tab-1',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class II',
+                            value='tab-2',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class III',
+                            value='tab-3', className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class IV',
+                            value='tab-4',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                        dcc.Tab(
+                            label='Class V',
+                            value='tab-5',
+                            className='custom-tab',
+                            selected_className='custom-tab--selected',
+                            style=tab_style_b,
+                            selected_style=tab_selected_style_b
+                        ),
+                ]),
+                html.Div(id='tabs-content-classes'),
+                html.Div(id='datatable-interactivity-container')
+                ]
+    elif pathname == "/coats":
         return [
                 html.Div(className='row',
                         style = {'display':'flex',
