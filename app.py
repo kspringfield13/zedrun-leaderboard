@@ -569,6 +569,16 @@ def render_page_content(pathname):
                                 'fontFamily': 'verdana'
                             }
                         ),
+                        html.Div(
+                            children=f'Data updated: 4.14.2021 | 19681 Horses | *Billions included/hidden', style={
+                            'textAlign': 'right',
+                            'fontSize': '8px',
+                            'color': 'rgb(221, 235, 234)',
+                            'padding': '1px',
+                            'width': '100%',
+                            'display': 'inline-block',
+                            'fontFamily': 'verdana'
+                        }),
                         html.Div([
                             dcc.Graph(figure=fig),
                         ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'})
