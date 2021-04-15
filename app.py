@@ -64,7 +64,7 @@ color_map = dict(zip(coats.Coat, coats.hex_color))
 color_map['(?)'] = '#27282A'
 
 fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat'], values='Horse Count', color='Coat',
-                  color_discrete_map=color_map, hover_name='Coat',height=817)
+                  color_discrete_map=color_map, hover_name='Coat',height=795)
 fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',margin=dict(l=30,r=0,b=0,t=0))
 
 
