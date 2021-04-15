@@ -58,6 +58,16 @@ lb_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_at.csv')
 
 wh_df = pd.read_csv('zedrun_leaderboard-4.13.2021_7_30_wh.csv')
 
+coats = pd.read_csv('horse_coats_4.14.2021.csv')
+
+color_map = dict(zip(coats.Coat, coats.hex_color))
+color_map['(?)'] = '#27282A'
+
+fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat'], values='Horse Count', color='Coat',
+                  color_discrete_map=color_map, hover_name='Coat',height=817)
+fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',margin=dict(l=30,r=0,b=0,t=0))
+
+
 def generate_table(lb_df):
     return dash_table.DataTable(
         id='table',
@@ -458,7 +468,10 @@ def render_page_content(pathname):
                                 'display': 'inline-block',
                                 'fontFamily': 'verdana'
                             }
-                        )
+                        ),
+                        html.Div([
+                            dcc.Graph(figure=fig),
+                        ], style = {'display': 'inline-block', 'width': '100%'})
                         ])
                 ]
     elif pathname == "/page-2":
