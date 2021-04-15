@@ -203,12 +203,9 @@ def generate_table(lb_df):
         style_as_list_view=True
     )
 
-lb_df = lb_df[['name','gen','bloodline','breed_type','gender','stable_name',
-               'class','race_count','placed_pct','win_pct','odds','rank']]
+lb_df = lb_df[['name','gen','gender','stable_name','class','race_count','placed_pct','win_pct','odds','rank']]
 lb_df.rename(columns={'name':'Name',
                       'gen':'Gen',
-                      'bloodline':'Bloodline',
-                      'breed_type':'Breed',
                       'gender':'Gender',
                       'stable_name':'Stable',
                       'class':'Class',
@@ -222,12 +219,10 @@ lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
 lb_df['Odds'] = round(lb_df['Odds'], 2)
 
-wh_df = wh_df[['name','gen','bloodline','breed_type','gender','stable_name',
+wh_df = wh_df[['name','gen','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
 wh_df.rename(columns={'name':'Name',
                       'gen':'Gen',
-                      'bloodline':'Bloodline',
-                      'breed_type':'Breed',
                       'gender':'Gender',
                       'stable_name':'Stable',
                       'class':'Class',
