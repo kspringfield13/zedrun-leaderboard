@@ -60,12 +60,14 @@ lb_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_at.csv')
 wh_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_wh.csv')
 
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
+coats['Label'] = coats["Genesis Count"].astype(str) +" Gen | "+ coats["Horse Count"].astype(str) +" Tot"
 
 color_map = dict(zip(coats.Coat, coats.hex_color))
 color_map['(?)'] = '#27282A'
 
-fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat'], values='Horse Count', color='Coat',
+fig = px.treemap(coats, path=['color_group', 'Color Box', 'Coat', 'Label'], values='Horse Count', color='Coat',
                   color_discrete_map=color_map, hover_name='Coat',height=900)
+
 fig.update_layout(paper_bgcolor='rgba(0,0,0,0)',margin=dict(l=30,r=0,b=0,t=0))
 
 
