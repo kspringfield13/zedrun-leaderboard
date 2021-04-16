@@ -54,10 +54,10 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.14.2021 7:30pm EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_at.csv')
+updated = '4.15.2021 7:30pm EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.15.2021_7_30_at.csv')
 
-wh_df = pd.read_csv('zedrun_leaderboard-4.14.2021_7_30_wh.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-4.15.2021_7_30_wh.csv')
 
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 coats['Label'] = coats["Horse Count"].astype(str)
@@ -365,7 +365,7 @@ def render_page_content(pathname):
                             }
                         ),
                         html.Div(
-                            children=f'Data updated: {updated} | 3841 Horses', style={
+                            children=f'Data updated: {updated} | 4010 Horses', style={
                             'textAlign': 'right',
                             'fontSize': '8px',
                             'color': 'rgb(221, 235, 234)',
