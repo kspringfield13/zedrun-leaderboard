@@ -17,7 +17,7 @@ tabtitle = 'ZΞD RUN Insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
-                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.46"}])
+                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.42"}])
 server = app.server
 app.title = tabtitle
 app.index_string = '''<!DOCTYPE html>
@@ -135,7 +135,7 @@ def generate_table(lb_df):
             'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
             'fontFamily': font_family,
-            'font_size': '20px',
+            'font_size': '18px',
             'backgroundColor': 'black'
         },
         style_data={
@@ -363,7 +363,7 @@ items = [
 dropdown = dbc.Row(
     [
         dbc.Col(
-            dbc.DropdownMenu(items, label="CONTΞNT", color="primary", className="m-1", right=True, bs_size="lg"),
+            dbc.DropdownMenu(items, label="INSIGHTS", color="primary", className="m-1", right=True, bs_size="lg"),
         )
     ],
     no_gutters=True,
@@ -624,8 +624,8 @@ def render_page_content(pathname):
                             }
                         ),
                         html.Div([
-                            dcc.Graph(figure=fig),
-                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100%', 'margin-left': '30px'}),
+                            dcc.Graph(figure=fig, responsive='auto', style={'width': '100%', 'height': '100vh'}),
+                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'}),
                         html.Div(
                             children=f'Data updated: 4.14.2021 | 19681 Horses | *Billions included/hidden', style={
                             'textAlign': 'right',
