@@ -527,7 +527,7 @@ def render_page_content(pathname):
                             }
                         ),
                         html.Div(
-                            children=f'Data updated: {updated} | 3841 Horses', style={
+                            children=f'Data updated: {updated} | 4171 Horses', style={
                             'textAlign': 'right',
                             'fontSize': '8px',
                             'color': 'rgb(221, 235, 234)',
