@@ -631,7 +631,7 @@ def render_page_content(pathname):
                         ),
                         html.Div([
                             dcc.Graph(figure=fig),
-                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'}),
+                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100%', 'margin-left': '30px'}),
                         html.Div(
                             children=f'Data updated: 4.14.2021 | 19681 Horses | *Billions included/hidden', style={
                             'textAlign': 'right',
