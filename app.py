@@ -120,12 +120,9 @@ def generate_table(lb_df):
         sort_action="native",
         sort_mode="single",
         row_deletable=False,
-        # export_format='xlsx',
-        # export_headers='display',
         page_action='none',
         fixed_rows={'headers': True, 'data': 0},
         style_table={
-            # 'border': '1px solid rgb(221, 235, 234)',
             'overflowX': 'auto',
             "height": "90vh", "maxHeight": "90vh"
         },
@@ -308,10 +305,6 @@ tab_style_b = {
 }
 
 tab_selected_style = {
-    # 'borderTop': '3px solid rgb(51, 204, 204)',
-    # 'borderBottom': '3px solid rgb(51, 204, 204)',
-    # 'borderLeft': '3px solid rgb(51, 204, 204)',
-    # 'borderRight': '3px solid rgb(51, 204, 204)',
     'borderTop': '3px solid #007bff',
     'borderBottom': '3px solid #007bff',
     'borderLeft': '3px solid #007bff',
@@ -400,7 +393,6 @@ content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     dcc.Location(id="url"),
-    # sidebar,
     navbar,
     content
 ])
