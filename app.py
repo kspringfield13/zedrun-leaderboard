@@ -178,7 +178,7 @@ def generate_table(lb_df):
                     'column_id': 'Races'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'black'
+                'color': 'rgb(221, 235, 234)'
             },
             {
                 'if': {
@@ -186,7 +186,7 @@ def generate_table(lb_df):
                     'column_id': 'Placed %'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'black'
+                'color': 'rgb(221, 235, 234)'
             },
             {
                 'if': {
@@ -194,7 +194,7 @@ def generate_table(lb_df):
                     'column_id': 'Win %'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'black'
+                'color': 'rgb(221, 235, 234)'
             },
             {
                 'if': {
@@ -202,7 +202,7 @@ def generate_table(lb_df):
                     'column_id': 'Odds'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'black'
+                'color': 'rgb(221, 235, 234)'
             }
         ] +
         [
