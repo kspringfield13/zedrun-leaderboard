@@ -48,27 +48,71 @@ app.index_string = '''<!DOCTYPE html>
 </html>
 '''
 
+# add variable to all sections
+font_family = 'verdana'
+
 colors = {
     'background': 'black',
     'text': 'rgb(221, 235, 234)'
 }
 
 # add file to to directory
-updated = '4.15.2021 7:30pm EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.15.2021_7_30_at.csv')
+updated = '4.17.2021 1:30am EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.17.2021_1_30_at.csv')
 
-wh_df = pd.read_csv('zedrun_leaderboard-4.15.2021_7_30_wh.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-4.17.2021_1_30_wh.csv')
+
+com = lb_df.append(wh_df)
+horseys = com.name.drop_duplicates().tolist()
 
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 coats['Label'] = coats["Horse Count"].astype(str)
 
 color_map = dict(zip(coats.Coat, coats['Hex Color']))
-color_map['(?)'] = '#27282A'
+color_map['(?)'] = 'black'
 
-fig = px.treemap(coats, path=['Breed','Color Group', 'Color Box', 'Coat', 'Label'], values='Horse Count', color='Coat',
+fig = px.treemap(coats, path=['Breed','Color Group', 'Color Box', 'Coat'], values='Horse Count', color='Coat',
                   color_discrete_map=color_map, hover_name='Coat',height=886)
-
-fig.update_layout(paper_bgcolor='rgb(69, 89, 88)',margin=dict(l=0,r=0,b=0,t=0))
+fig.data[0].hovertemplate = '%{id}<br>%{value} horses'
+fig.data[0].textinfo = 'label+text+value'
+fig.update_layout(
+    paper_bgcolor='#27282A',
+    margin=dict(l=0,r=0,b=0,t=0),
+    updatemenus=[
+        dict(
+            type = "buttons",
+            direction = "left",
+            buttons=list([
+                dict(
+                    args=["type", "treemap"],
+                    label="Treemap",
+                    method="restyle"
+                ),
+                dict(
+                    args=["type", "sunburst"],
+                    label="Sunburst",
+                    method="restyle"
+                )
+            ]),
+            pad={"r": 10, "t": 10},
+            showactive=True,
+            x=0.072,
+            xanchor="left",
+            y=1.06,
+            yanchor="top",
+            font={'size':12,
+                  'color':'#27282A'},
+            bgcolor='black'
+        ),
+    ]
+)
+fig.update_layout(
+    annotations=[
+        dict(text="VIZ TYPΞ:", showarrow=False,
+             x=0.01, y=1.044, yref="paper", align="left",
+             font={'color':'rgb(221, 235, 234)', 'size': 16})
+    ]
+)
 
 
 def generate_table(lb_df):
@@ -79,7 +123,6 @@ def generate_table(lb_df):
         editable=False,
         cell_selectable=False,
         row_selectable=False,
-        filter_action="native",
         sort_action="native",
         sort_mode="single",
         row_deletable=False,
@@ -93,50 +136,50 @@ def generate_table(lb_df):
             "height": "90vh", "maxHeight": "90vh"
         },
         style_header={
-            'height': 'auto',
+            'height': '40px',
             'overflow': 'hidden',
             'textOverflow': 'ellipsis',
             'textAlign': 'center',
             'padding': '3px',
             'color': 'rgb(221, 235, 234)',
             'fontWeight': 'bold',
-            'fontFamily': 'verdana',
-            'font_size': '10px',
+            'fontFamily': font_family,
+            'font_size': '20px',
             'backgroundColor': 'black'
         },
         style_data={
-            'height': 'auto',
+            'height': '50px',
             'overflow': 'hidden',
             'textOverflow': 'ellipsis',
             'textAlign': 'center',
             'padding': '3px',
             'backgroundColor': 'rgb(10, 10, 10)',
             'color': 'rgb(221, 235, 234)',
-            'font_family': 'verdana',
-            'font_size': '10px'
+            'font_family': font_family,
+            'font_size': '18px'
         },
         style_header_conditional=[
         {
             'if': {'column_id': 'Name'},
-            'textAlign': 'right'
+            'textAlign': 'center'
         }
         ],
         style_data_conditional=[
             {
             'if': {'column_id': 'Name'},
-            'textAlign': 'right',
+            'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '12px'
+            'fontSize': '18px'
             },
             {
             'if': {'column_id': 'Rank'},
             'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '14px'
+            'fontSize': '24px'
             },
             {
                 'if': {'row_index': 'odd'},
-                'backgroundColor': 'rgb(69, 89, 88)',
+                'backgroundColor': '#27282A',
             },
             {
                 'if': {
@@ -243,12 +286,15 @@ tab_style_t = {
     'borderTop': '3px solid black',
     'borderLeft': '3px solid black',
     'borderRight': '3px solid black',
-    'backgroundColor': 'rgb(69, 89, 88)',
+    'backgroundColor': '#27282A',
     'color': 'rgb(221, 235, 234)',
-    'padding': '3px',
+    'padding': '8px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana',
-    'margin-bottom': '4px'
+    'fontFamily': font_family,
+    'fontWeight': 'bold',
+    'fontSize': '20px',
+    'margin-bottom': '4px',
+    'height': '6vh'
 }
 
 tab_style_b = {
@@ -258,10 +304,13 @@ tab_style_b = {
     'borderRight': '3px solid black',
     'backgroundColor': 'rgb(221, 235, 234)',
     'color': 'black',
-    'padding': '3px',
+    'padding': '7px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana',
-    'margin-bottom': '4px'
+    'fontFamily': font_family,
+    'fontWeight': 'bold',
+    'fontSize': '16px',
+    'margin-bottom': '4px',
+    'height': '5vh'
 }
 
 tab_selected_style = {
@@ -272,10 +321,12 @@ tab_selected_style = {
     'backgroundColor': 'black',
     'fontWeight': 'bold',
     'color': 'rgb(51, 204, 204)',
-    'padding': '3px',
+    'padding': '8px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana',
-    'margin-bottom': '4px'
+    'fontFamily': font_family,
+    'fontSize': '20px',
+    'margin-bottom': '4px',
+    'height': '6vh'
 }
 
 tab_selected_style_b = {
@@ -286,10 +337,12 @@ tab_selected_style_b = {
     'backgroundColor': 'black',
     'fontWeight': 'bold',
     'color': 'rgb(51, 204, 204)',
-    'padding': '3px',
+    'padding': '7px',
     'borderRadius': '15px',
-    'fontFamily': 'verdana',
-    'margin-bottom': '4px'
+    'fontFamily': font_family,
+    'fontSize': '16px',
+    'margin-bottom': '4px',
+    'height': '5vh'
 }
 
 SIDEBAR_STYLE = {
@@ -314,15 +367,19 @@ sidebar = html.Div(
     [
         html.H2("ZΞD RUN", className="display-4", style={"fontSize":"24px",
                                                          'textAlign': 'center'}),
-        html.H2("Insights", className="display-4", style={"fontSize":"16px",
+        html.H2("insights", className="display-4", style={"fontSize":"16px",
                                                           'textAlign': 'center'}),
         html.Hr(style={'backgroundColor':'rgb(69, 89, 88)'}),
         dbc.Nav(
             [
                 dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
-                                                                            'textAlign': 'center'}),
+                                                                            'textAlign': 'center',
+                                                                            'fontSize': '10px',
+                                                                            'fontColor': 'rgb(221, 235, 234)'}),
                 dbc.NavLink("HORSΞ COATS", href="/coats", active="exact", style={"color":"rgb(221, 235, 234)",
-                                                                                  'textAlign': 'center'}),
+                                                                                  'textAlign': 'center',
+                                                                                  'fontSize': '10px',
+                                                                                  'fontColor': 'rgb(221, 235, 234)'}),
                 # dbc.NavLink("COMING SOON", href="/page-2", active="exact", style={"color":"rgb(221, 235, 234)"})
             ],
             vertical=True,
@@ -359,22 +416,25 @@ def render_page_content(pathname):
                                 'paddingTop': '5px',
                                 'width': '100%',
                                 'textAlign': 'center',
-                                'fontSize': '36px',
+                                'fontSize': '40px',
                                 'display': 'inline-block',
-                                'fontFamily': 'verdana'
+                                'fontFamily': font_family
                             }
                         ),
                         html.Div(
-                            children=f'Data updated: {updated} | 4010 Horses', style={
+                            children=f'Data updated: {updated} | 4171 Horses', style={
                             'textAlign': 'right',
                             'fontSize': '8px',
                             'color': 'rgb(221, 235, 234)',
                             'padding': '1px',
                             'width': '100%',
                             'display': 'inline-block',
-                            'fontFamily': 'verdana'
+                            'fontFamily': font_family
                         })
                         ]),
+                # html.Div(dcc.Dropdown(id='my-dropdown',
+                # options=[{'label': i, 'value': i} for i in horseys],
+                # value='')),
                 dcc.Tabs(
                     id="tabs-with-filter",
                     value='tab-1',
@@ -461,9 +521,9 @@ def render_page_content(pathname):
                                 'paddingTop': '5px',
                                 'width': '100%',
                                 'textAlign': 'center',
-                                'fontSize': '36px',
+                                'fontSize': '40px',
                                 'display': 'inline-block',
-                                'fontFamily': 'verdana'
+                                'fontFamily': font_family
                             }
                         ),
                         html.Div(
@@ -474,7 +534,7 @@ def render_page_content(pathname):
                             'padding': '1px',
                             'width': '100%',
                             'display': 'inline-block',
-                            'fontFamily': 'verdana'
+                            'fontFamily': font_family
                         })
                         ]),
                 dcc.Tabs(
@@ -564,11 +624,14 @@ def render_page_content(pathname):
                                 'padding': '5px',
                                 'width': '100%',
                                 'textAlign': 'center',
-                                'fontSize': '36px',
+                                'fontSize': '40px',
                                 'display': 'inline-block',
-                                'fontFamily': 'verdana'
+                                'fontFamily': font_family
                             }
                         ),
+                        html.Div([
+                            dcc.Graph(figure=fig),
+                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'}),
                         html.Div(
                             children=f'Data updated: 4.14.2021 | 19681 Horses | *Billions included/hidden', style={
                             'textAlign': 'right',
@@ -577,11 +640,18 @@ def render_page_content(pathname):
                             'padding': '1px',
                             'width': '100%',
                             'display': 'inline-block',
-                            'fontFamily': 'verdana'
+                            'fontFamily': font_family
                         }),
-                        html.Div([
-                            dcc.Graph(figure=fig),
-                        ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'})
+                        html.Div(
+                            html.A("zed.run source", href='https://community.zed.run/breed/coat-colour/', target="_blank"), style={
+                            'textAlign': 'right',
+                            'fontSize': '8px',
+                            'color': 'rgb(221, 235, 234)',
+                            'padding': '1px',
+                            'width': '100%',
+                            'display': 'inline-block',
+                            'fontFamily': font_family
+                        })
                         ])
                 ]
     elif pathname == "/page-2":
@@ -597,6 +667,10 @@ def render_page_content(pathname):
             html.P(f"The pathname {pathname} was not recognised..."),
         ]
     )
+# @app.callback(Output('tabs-content-classes', 'selected_rows'), [Input('my-dropdown', 'value')])
+# def update_rows(selected_value):
+#     dff = com[com['name'] == selected_value]
+#     return dff.to_dict('records')
 
 @app.callback(Output('tabs-content-classes', 'children'),
               Input('tabs-with-classes', 'value'),
