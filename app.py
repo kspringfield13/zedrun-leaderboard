@@ -17,7 +17,7 @@ tabtitle = 'ZΞD RUN Insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
-                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.52"}])
+                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.58"}])
 server = app.server
 app.title = tabtitle
 app.index_string = '''<!DOCTYPE html>
@@ -178,7 +178,8 @@ def generate_table(lb_df):
                     'column_id': 'Races'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'rgb(221, 235, 234)'
+                'color': 'rgb(221, 235, 234)',
+                'fontWeight': 'bold',
             },
             {
                 'if': {
@@ -186,7 +187,8 @@ def generate_table(lb_df):
                     'column_id': 'Placed %'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'rgb(221, 235, 234)'
+                'color': 'rgb(221, 235, 234)',
+                'fontWeight': 'bold',
             },
             {
                 'if': {
@@ -194,7 +196,8 @@ def generate_table(lb_df):
                     'column_id': 'Win %'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'rgb(221, 235, 234)'
+                'color': 'rgb(221, 235, 234)',
+                'fontWeight': 'bold',
             },
             {
                 'if': {
@@ -202,7 +205,8 @@ def generate_table(lb_df):
                     'column_id': 'Odds'
                 },
                 'backgroundColor': '#007bff',
-                'color': 'rgb(221, 235, 234)'
+                'color': 'rgb(221, 235, 234)',
+                'fontWeight': 'bold',
             }
         ] +
         [
@@ -344,7 +348,8 @@ CONTENT_STYLE = {
 
 badge = html.Div(
     html.H5(
-        [f'Updated',dbc.Badge(updated,pill=True, color="dark", className="ml-1"),'    Horses', dbc.Badge("4171",pill=True, color="dark", className="ml-1")],
+        [f'Updated',dbc.Badge(updated,pill=True, color="dark", className="ml-1", style={'fontSize':'14px'}),
+         '    Horses', dbc.Badge("4171",pill=True, color="dark", className="ml-1", style={'fontSize':'14px'})],
         style={"color":"rgb(221, 235, 234)","padding": '3px', "fontFamily": font_family},
     )
 )
@@ -358,8 +363,7 @@ items = [
 dropdown = dbc.Row(
     [
         dbc.Col(
-            dbc.DropdownMenu(items, label="CONTΞNT", color="primary", className="m-1", right=True,
-                             style={'fontSize':'18px'}),
+            dbc.DropdownMenu(items, label="CONTΞNT", color="primary", className="m-1", right=True, bs_size="lg"),
         )
     ],
     no_gutters=True,
