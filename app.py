@@ -101,19 +101,13 @@ fig.update_layout(
             y=1.06,
             yanchor="top",
             font={'size':12,
+                  'family': font_family,
                   'color':'#27282A'},
             bgcolor='black'
         ),
     ]
 )
-# fig.update_layout(
-#     annotations=[
-#         dict(text="VIZ TYPΞ:", showarrow=False,
-#              x=0.01, y=1.044, yref="paper", align="left",
-#              font={'color':'rgb(221, 235, 234)', 'size': 16})
-#     ]
-# )
-
+            
 
 def generate_table(lb_df):
     return dash_table.DataTable(
@@ -186,7 +180,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Races}} = {}'.format(lb_df['Races'].max()),
                     'column_id': 'Races'
                 },
-                'backgroundColor': 'rgb(51, 204, 204)',
+                'backgroundColor': '#007bff',
                 'color': 'black'
             },
             {
@@ -194,7 +188,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Placed %}} = {}'.format(lb_df['Placed %'].max()),
                     'column_id': 'Placed %'
                 },
-                'backgroundColor': 'rgb(51, 204, 204)',
+                'backgroundColor': '#007bff',
                 'color': 'black'
             },
             {
@@ -202,7 +196,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Win %}} = {}'.format(lb_df['Win %'].max()),
                     'column_id': 'Win %'
                 },
-                'backgroundColor': 'rgb(51, 204, 204)',
+                'backgroundColor': '#007bff',
                 'color': 'black'
             },
             {
@@ -210,7 +204,7 @@ def generate_table(lb_df):
                     'filter_query': '{{Odds}} = {}'.format(lb_df['Odds'].min()),
                     'column_id': 'Odds'
                 },
-                'backgroundColor': 'rgb(51, 204, 204)',
+                'backgroundColor': '#007bff',
                 'color': 'black'
             }
         ] +
@@ -314,13 +308,17 @@ tab_style_b = {
 }
 
 tab_selected_style = {
-    'borderTop': '3px solid rgb(51, 204, 204)',
-    'borderBottom': '3px solid rgb(51, 204, 204)',
-    'borderLeft': '3px solid rgb(51, 204, 204)',
-    'borderRight': '3px solid rgb(51, 204, 204)',
+    # 'borderTop': '3px solid rgb(51, 204, 204)',
+    # 'borderBottom': '3px solid rgb(51, 204, 204)',
+    # 'borderLeft': '3px solid rgb(51, 204, 204)',
+    # 'borderRight': '3px solid rgb(51, 204, 204)',
+    'borderTop': '3px solid #007bff',
+    'borderBottom': '3px solid #007bff',
+    'borderLeft': '3px solid #007bff',
+    'borderRight': '3px solid #007bff',
     'backgroundColor': 'black',
     'fontWeight': 'bold',
-    'color': 'rgb(51, 204, 204)',
+    'color': 'rgb(221, 235, 234)',
     'padding': '8px',
     'borderRadius': '15px',
     'fontFamily': font_family,
@@ -330,13 +328,13 @@ tab_selected_style = {
 }
 
 tab_selected_style_b = {
-    'borderTop': '3px solid rgb(51, 204, 204)',
-    'borderBottom': '3px solid rgb(51, 204, 204)',
-    'borderLeft': '3px solid rgb(51, 204, 204)',
-    'borderRight': '3px solid rgb(51, 204, 204)',
+    'borderTop': '3px solid #007bff',
+    'borderBottom': '3px solid #007bff',
+    'borderLeft': '3px solid #007bff',
+    'borderRight': '3px solid #007bff',
     'backgroundColor': 'black',
     'fontWeight': 'bold',
-    'color': 'rgb(51, 204, 204)',
+    'color': 'rgb(221, 235, 234)',
     'padding': '7px',
     'borderRadius': '15px',
     'fontFamily': font_family,
@@ -345,57 +343,78 @@ tab_selected_style_b = {
     'height': '5vh'
 }
 
-SIDEBAR_STYLE = {
-    "position": "fixed",
-    "top": 0,
-    "left": 0,
-    "bottom": 0,
-    # "width": "16rem",
-    "width": "12rem",
-    "padding": "2rem 1rem",
-    "background-color": "#27282A",
-    "color":"rgb(221, 235, 234)"
-}
-
 CONTENT_STYLE = {
-    "margin-left": "13rem",
+    "margin-left": "1rem",
     "margin-right": "1rem",
     "padding": "1rem 1rem",
 }
 
-sidebar = html.Div(
+badge = html.Div(
+    html.H5(
+        [f'Updated',dbc.Badge(updated,pill=True, color="dark", className="ml-1"),'    Horses', dbc.Badge("4171",pill=True, color="dark", className="ml-1")],
+        style={"color":"rgb(221, 235, 234)","padding": '3px', "fontFamily": font_family},
+    )
+)
+
+items = [
+    dbc.DropdownMenuItem("LΞADΞRBOARD", href="/leaderboard"),
+    dbc.DropdownMenuItem(divider=True),
+    dbc.DropdownMenuItem("HORSΞ COATS", href="/coats"),
+]
+
+dropdown = dbc.Row(
     [
-        html.H2("ZΞD RUN", className="display-4", style={"fontSize":"24px",
-                                                         'textAlign': 'center'}),
-        html.H2("insights", className="display-4", style={"fontSize":"16px",
-                                                          'textAlign': 'center'}),
-        html.Hr(style={'backgroundColor':'rgb(0, 250, 250)'}),
-        dbc.Nav(
-            [
-                dbc.NavLink("LΞADΞRBOARD", href="/", active="exact", style={"color":"rgb(221, 235, 234)",
-                                                                            'textAlign': 'center',
-                                                                            'fontSize': '10px',
-                                                                            'fontColor': 'rgb(221, 235, 234)'}),
-                dbc.NavLink("HORSΞ COATS", href="/coats", active="exact", style={"color":"rgb(221, 235, 234)",
-                                                                                  'textAlign': 'center',
-                                                                                  'fontSize': '10px',
-                                                                                  'fontColor': 'rgb(221, 235, 234)'}),
-                # dbc.NavLink("COMING SOON", href="/page-2", active="exact", style={"color":"rgb(221, 235, 234)"})
-            ],
-            vertical=True,
-            pills=True,
-        ),
+        dbc.Col(
+            dbc.DropdownMenu(items, label="CONTΞNT", color="primary", className="m-1", right=True,
+                             style={'fontSize':'18px'}),
+        )
     ],
-    style=SIDEBAR_STYLE,
+    no_gutters=True,
+    className="ml-auto flex-nowrap mt-3 mt-md-0",
+    align="center",
+)
+
+logo = "/assets/zedruninsights_logo.png"
+
+navbar = dbc.Navbar(
+    children=[
+        html.A(
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=logo, height='30px')),
+                    dbc.Col(dbc.NavbarBrand("ZRi", className='ml-2', style={'fontSize':'20px'})),
+                ],
+                align='center',
+                no_gutters=True,
+            ),
+            href="/",
+        ),
+        dbc.NavbarToggler(id="navbar-toggler"),
+        dbc.Collapse(dropdown, id="navbar-collapse", navbar=True),
+    ],
+    color="#27282A",
+    dark=True,
 )
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     dcc.Location(id="url"),
-    sidebar,
+    # sidebar,
+    navbar,
     content
 ])
+
+# add callback for toggling the collapse on small screens
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
 
 @app.callback(
     Output("page-content", "children"),
@@ -421,23 +440,11 @@ def render_page_content(pathname):
                                 'fontFamily': font_family
                             }
                         ),
-                        html.Div(
-                            children=f'Data updated: {updated} | 4171 Horses', style={
-                            'textAlign': 'right',
-                            'fontSize': '8px',
-                            'color': 'rgb(221, 235, 234)',
-                            'padding': '1px',
-                            'width': '100%',
-                            'display': 'inline-block',
-                            'fontFamily': font_family
-                        })
+                        badge,
                         ]),
-                # html.Div(dcc.Dropdown(id='my-dropdown',
-                # options=[{'label': i, 'value': i} for i in horseys],
-                # value='')),
                 dcc.Tabs(
                     id="tabs-with-filter",
-                    value='tab-1',
+                    value='tab-t2',
                     parent_className='custom-tabs',
                     className='custom-tabs-container',
                     children=[
@@ -526,16 +533,7 @@ def render_page_content(pathname):
                                 'fontFamily': font_family
                             }
                         ),
-                        html.Div(
-                            children=f'Data updated: {updated} | 4171 Horses', style={
-                            'textAlign': 'right',
-                            'fontSize': '8px',
-                            'color': 'rgb(221, 235, 234)',
-                            'padding': '1px',
-                            'width': '100%',
-                            'display': 'inline-block',
-                            'fontFamily': font_family
-                        })
+                        badge,
                         ]),
                 dcc.Tabs(
                     id="tabs-with-filter",
@@ -667,10 +665,6 @@ def render_page_content(pathname):
             html.P(f"The pathname {pathname} was not recognised..."),
         ]
     )
-# @app.callback(Output('tabs-content-classes', 'selected_rows'), [Input('my-dropdown', 'value')])
-# def update_rows(selected_value):
-#     dff = com[com['name'] == selected_value]
-#     return dff.to_dict('records')
 
 @app.callback(Output('tabs-content-classes', 'children'),
               Input('tabs-with-classes', 'value'),
