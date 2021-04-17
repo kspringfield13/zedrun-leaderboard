@@ -96,7 +96,7 @@ fig.update_layout(
             ]),
             pad={"r": 10, "t": 10},
             showactive=True,
-            x=0.072,
+            x=0.02,
             xanchor="left",
             y=1.06,
             yanchor="top",
@@ -106,13 +106,13 @@ fig.update_layout(
         ),
     ]
 )
-fig.update_layout(
-    annotations=[
-        dict(text="VIZ TYPΞ:", showarrow=False,
-             x=0.01, y=1.044, yref="paper", align="left",
-             font={'color':'rgb(221, 235, 234)', 'size': 16})
-    ]
-)
+# fig.update_layout(
+#     annotations=[
+#         dict(text="VIZ TYPΞ:", showarrow=False,
+#              x=0.01, y=1.044, yref="paper", align="left",
+#              font={'color':'rgb(221, 235, 234)', 'size': 16})
+#     ]
+# )
 
 
 def generate_table(lb_df):
