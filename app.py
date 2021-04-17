@@ -283,13 +283,13 @@ tab_style_t = {
     'borderRight': '3px solid black',
     'backgroundColor': '#27282A',
     'color': 'rgb(221, 235, 234)',
-    'padding': '7px 7px 7px 7px',
+    'padding': '7px',
     'borderRadius': '15px',
     'fontFamily': font_family,
     'fontWeight': 'bold',
     'fontSize': '20px',
     'margin-bottom': '4px',
-    'height': '6vh'
+    'height': '52px'
 }
 
 tab_style_b = {
@@ -299,13 +299,13 @@ tab_style_b = {
     'borderRight': '3px solid black',
     'backgroundColor': 'rgb(221, 235, 234)',
     'color': 'black',
-    'padding': '7px 7px 7px 7px',
+    'padding': '7px',
     'borderRadius': '15px',
     'fontFamily': font_family,
     'fontWeight': 'bold',
     'fontSize': '16px',
     'margin-bottom': '4px',
-    'height': '5vh'
+    'height': '46px'
 }
 
 tab_selected_style = {
@@ -316,12 +316,12 @@ tab_selected_style = {
     'backgroundColor': 'black',
     'fontWeight': 'bold',
     'color': 'rgb(221, 235, 234)',
-    'padding': '7px 7px 7px 7px',
+    'padding': '7px',
     'borderRadius': '15px',
     'fontFamily': font_family,
     'fontSize': '20px',
     'margin-bottom': '4px',
-    'height': '6vh'
+    'height': '52px'
 }
 
 tab_selected_style_b = {
@@ -332,12 +332,12 @@ tab_selected_style_b = {
     'backgroundColor': 'black',
     'fontWeight': 'bold',
     'color': 'rgb(221, 235, 234)',
-    'padding': '7px 7px 7px 7px',
+    'padding': '7px',
     'borderRadius': '15px',
     'fontFamily': font_family,
     'fontSize': '16px',
     'margin-bottom': '4px',
-    'height': '5vh'
+    'height': '46px'
 }
 
 CONTENT_STYLE = {
