@@ -17,7 +17,7 @@ tabtitle = 'ZΞD RUN Insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
-                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.95"}])
+                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1.3"}])
 server = app.server
 app.title = tabtitle
 app.index_string = '''<!DOCTYPE html>
