@@ -57,10 +57,10 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.17.2021 1:30am EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.17.2021_1_30_at.csv')
+updated = '4.17.2021 6:30pm EST'
+lb_df = pd.read_csv('zedrun_leaderboard-4.17.2021_6_30_at.csv')
 
-wh_df = pd.read_csv('zedrun_leaderboard-4.17.2021_1_30_wh.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-4.17.2021_6_30_wh.csv')
 
 com = lb_df.append(wh_df)
 horseys = com.name.drop_duplicates().tolist()
@@ -160,7 +160,7 @@ def generate_table(lb_df):
             'if': {'column_id': 'Name'},
             'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '18px'
+            'fontSize': '16px'
             },
             {
             'if': {'column_id': 'Rank'},
@@ -230,8 +230,10 @@ def generate_table(lb_df):
             for i in lb_df['Rank'].nsmallest(10)
         ],
         style_cell={
-            'overflow': 'hidden',
-            'textOverflow': 'ellipsis',
+            # 'overflow': 'hidden',
+            # 'textOverflow': 'ellipsis',
+            'whitespace': 'normal',
+            'height': 'auto',
             'minWidth': '25px', 'width': '30px', 'maxWidth': '75px'
         } ,
         style_cell_conditional=[
