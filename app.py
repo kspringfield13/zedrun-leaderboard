@@ -174,8 +174,10 @@ def generate_table(lb_df):
         style_data_conditional=[
             {
             'if': {'column_id': 'Horse'},
-            'minWidth': '40px', 'width': '40px', 'maxWidth': '40px',
-            'paddingTop': '12px'
+            'minWidth': '34px', 'width': '34px', 'maxWidth': '34px',
+            'paddingTop': '12px',
+            'paddingLeft': '10px',
+            'paddingRight': '10px'
             },
             {
             'if': {'column_id': 'Name'},
