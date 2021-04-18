@@ -13,7 +13,7 @@ import pandas as pd
 import plotly.express as px
 import dash_table
 
-tabtitle = 'ZΞD RUN Insights'
+tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
@@ -57,10 +57,11 @@ colors = {
 }
 
 # add file to to directory
-updated = '4.17.2021 6:30pm EST'
-lb_df = pd.read_csv('zedrun_leaderboard-4.17.2021_6_30_at.csv')
+updated = '4.18.2021 12:00pm EST'
+horse_cnt = 4345
+lb_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_at.csv')
 
-wh_df = pd.read_csv('zedrun_leaderboard-4.17.2021_6_30_wh.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_wh.csv')
 
 com = lb_df.append(wh_df)
 horseys = com.name.drop_duplicates().tolist()
@@ -107,13 +108,23 @@ fig.update_layout(
         ),
     ]
 )
-            
 
 def generate_table(lb_df):
     return dash_table.DataTable(
         id='table',
-        columns = [{"name": i, "id": i} for i in lb_df.columns],
+        # columns = [{"name": i, "id": i} for i in lb_df.columns],
         data = lb_df.to_dict('records'),
+        columns=[{'name': 'Name', 'id':'Name','type':'text','presentation':'markdown'},
+                 {'name': 'Horse', 'id':'Horse','type':'text','presentation':'markdown'},
+                 {'name': 'Gen', 'id':'Gen'},
+                 {'name': 'Stable', 'id':'Stable'},
+                 {'name': 'Class', 'id':'Class'},
+                 {'name': 'Races', 'id':'Races'},
+                 {'name': 'Placed %', 'id':'Placed %'},
+                 {'name': 'Win %', 'id': 'Win %'},
+                 {'name': 'Odds', 'id': 'Odds'},
+                 {'name': 'Rank', 'id': 'Rank'}],
+        css=[dict(selector='img[alt=horse_svg]', rule='height: 65px;')],
         editable=False,
         cell_selectable=False,
         row_selectable=False,
@@ -139,7 +150,6 @@ def generate_table(lb_df):
             'backgroundColor': 'black'
         },
         style_data={
-            'height': '50px',
             'overflow': 'hidden',
             'textOverflow': 'ellipsis',
             'textAlign': 'center',
@@ -147,26 +157,39 @@ def generate_table(lb_df):
             'backgroundColor': 'rgb(10, 10, 10)',
             'color': 'rgb(221, 235, 234)',
             'font_family': font_family,
-            'font_size': '18px'
+            'font_size': '20px'
+        },
+        style_cell={
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'minWidth': '20px', 'width': '30px', 'maxWidth': '60px',
+            'whiteSpace': 'normal',
         },
         style_header_conditional=[
         {
             'if': {'column_id': 'Name'},
-            'textAlign': 'center'
+            'textAlign': 'left'
         }
         ],
         style_data_conditional=[
             {
+            'if': {'column_id': 'Horse'},
+            'minWidth': '40px', 'width': '40px', 'maxWidth': '40px',
+            'paddingTop': '12px'
+            },
+            {
             'if': {'column_id': 'Name'},
-            'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '16px'
+            'fontSize': '20px',
+            'paddingLeft': '14px',
+            'paddingTop': '12px'
             },
             {
             'if': {'column_id': 'Rank'},
             'textAlign': 'center',
             'fontWeight': 'bold',
-            'fontSize': '24px'
+            'fontSize': '26px',
+            'minWidth': '26px', 'width': '30px', 'maxWidth': '30px'
             },
             {
                 'if': {'row_index': 'odd'},
@@ -218,24 +241,7 @@ def generate_table(lb_df):
                 'color': 'tomato'
             }
             for i in lb_df['Rank'].nsmallest(10)
-        ] +
-        [
-            {
-                'if': {
-                    'filter_query': '{{Rank}} = {}'.format(i),
-                    'column_id': 'Name'
-                },
-                'color': 'tomato'
-            }
-            for i in lb_df['Rank'].nsmallest(10)
         ],
-        style_cell={
-            # 'overflow': 'hidden',
-            # 'textOverflow': 'ellipsis',
-            'whitespace': 'normal',
-            'height': 'auto',
-            'minWidth': '25px', 'width': '30px', 'maxWidth': '75px'
-        } ,
         style_cell_conditional=[
         {'if': {'column_id': 'Class'},
             'display': 'none'},
@@ -245,8 +251,33 @@ def generate_table(lb_df):
         style_as_list_view=True
     )
 
-lb_df = lb_df[['name','gen','gender','stable_name','class','race_count','placed_pct','win_pct','odds','rank']]
-lb_df.rename(columns={'name':'Name',
+def display_links(df):
+    links = df['zed_url'].to_list()
+    names = df['name'].to_list()
+    rows = []
+    for URL, n in zip(links, names):
+        link = f'[{n}](' +str(URL) + ')'
+        rows.append(link)
+    return rows
+
+def horse_svg(df):
+    links = df['img_url'].to_list()
+    names = df['name'].to_list()
+    rows = []
+    for URL, n in zip(links, names):
+        link = '![horse_svg](' +str(URL) + ')'
+        rows.append(link)
+    return rows
+
+# all-time
+lb_df = lb_df[['img_url','zed_url','name','gen','gender','stable_name',
+               'class','race_count','placed_pct','win_pct','odds','rank']]
+
+lb_df['url_name'] = display_links(lb_df)
+lb_df['Horse'] = horse_svg(lb_df)
+
+# changing Name to url_name
+lb_df.rename(columns={'url_name':'Name',
                       'gen':'Gen',
                       'gender':'Gender',
                       'stable_name':'Stable',
@@ -261,9 +292,17 @@ lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
 lb_df['Odds'] = round(lb_df['Odds'], 2)
 
-wh_df = wh_df[['name','gen','gender','stable_name',
+lb_df = lb_df[['Name','Horse','Gen','Stable','Class','Races','Placed %','Win %','Odds','Rank']]
+
+# whos hot
+wh_df = wh_df[['img_url','zed_url','name','gen','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
-wh_df.rename(columns={'name':'Name',
+
+wh_df['url_name'] = display_links(wh_df)
+wh_df['Horse'] = horse_svg(wh_df)
+
+# changing Name to url_name
+wh_df.rename(columns={'url_name':'Name',
                       'gen':'Gen',
                       'gender':'Gender',
                       'stable_name':'Stable',
@@ -273,6 +312,8 @@ wh_df.rename(columns={'name':'Name',
                       'win_pct':'Win %',
                       'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
+
+wh_df = wh_df[['Name','Horse','Gen','Stable','Class','Races','Placed %','Win %','Odds','Rank']]
 
 wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
 wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
@@ -351,7 +392,7 @@ CONTENT_STYLE = {
 badge = html.Div(
     html.H5(
         [f'Updated',dbc.Badge(updated,pill=True, color="dark", className="ml-1", style={'fontSize':'14px'}),
-         '    Horses', dbc.Badge("4171",pill=True, color="dark", className="ml-1", style={'fontSize':'14px'})],
+         '    Horses', dbc.Badge(f"{horse_cnt}",pill=True, color="dark", className="ml-1", style={'fontSize':'14px'})],
         style={"color":"rgb(221, 235, 234)","padding": '3px', "fontFamily": font_family},
     )
 )
