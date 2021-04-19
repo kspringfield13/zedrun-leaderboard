@@ -16,10 +16,24 @@ import dash_table
 tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
+# user input update for now
+updated = '4.18.2021 12:00pm EST'
+
+# .csv files. eventually transfer to postgres db
+lb_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_at.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_wh.csv')
+coats = pd.read_csv('horse_coats_4.14.2021.csv')
+
+# font for most of the site
+font_family = 'verdana'
+
+# initialize Dash app
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
                 meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.42"}])
 server = app.server
 app.title = tabtitle
+
+# tag for Google Analytics
 app.index_string = '''<!DOCTYPE html>
 <html>
 <head>
@@ -48,27 +62,12 @@ app.index_string = '''<!DOCTYPE html>
 </html>
 '''
 
-# add variable to all sections
-font_family = 'verdana'
-
-colors = {
-    'background': 'black',
-    'text': 'rgb(221, 235, 234)'
-}
-
-# add file to to directory
-updated = '4.18.2021 12:00pm EST'
-horse_cnt = 4345
-lb_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_at.csv')
-
-wh_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_wh.csv')
-
+# combine .csv files to get total horse count
 com = lb_df.append(wh_df)
-horseys = com.name.drop_duplicates().tolist()
+horse_cnt = len(com.name.drop_duplicates().tolist())
 
-coats = pd.read_csv('horse_coats_4.14.2021.csv')
+# create treemap/sunburst figure
 coats['Label'] = coats["Horse Count"].astype(str)
-
 color_map = dict(zip(coats.Coat, coats['Hex Color']))
 color_map['(?)'] = 'black'
 
@@ -109,10 +108,10 @@ fig.update_layout(
     ]
 )
 
+# create datatable
 def generate_table(lb_df):
     return dash_table.DataTable(
         id='table',
-        # columns = [{"name": i, "id": i} for i in lb_df.columns],
         data = lb_df.to_dict('records'),
         columns=[{'name': 'Name', 'id':'Name','type':'text','presentation':'markdown'},
                  {'name': 'Horse', 'id':'Horse','type':'text','presentation':'markdown'},
@@ -253,6 +252,7 @@ def generate_table(lb_df):
         style_as_list_view=True
     )
 
+# creates url links for the horse names
 def display_links(df):
     links = df['zed_url'].to_list()
     names = df['name'].to_list()
@@ -262,6 +262,7 @@ def display_links(df):
         rows.append(link)
     return rows
 
+# creates the url links for the horse pictures
 def horse_svg(df):
     links = df['img_url'].to_list()
     names = df['name'].to_list()
@@ -271,14 +272,11 @@ def horse_svg(df):
         rows.append(link)
     return rows
 
-# all-time
+# data prep for the all-time dataframe
 lb_df = lb_df[['img_url','zed_url','name','gen','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
-
 lb_df['url_name'] = display_links(lb_df)
 lb_df['Horse'] = horse_svg(lb_df)
-
-# changing Name to url_name
 lb_df.rename(columns={'url_name':'Name',
                       'gen':'Gen',
                       'gender':'Gender',
@@ -293,17 +291,13 @@ lb_df.rename(columns={'url_name':'Name',
 lb_df['Placed %'] = round(lb_df['Placed %'].astype(float)*100,2)
 lb_df['Win %'] = round(lb_df['Win %'].astype(float)*100,2)
 lb_df['Odds'] = round(lb_df['Odds'], 2)
-
 lb_df = lb_df[['Name','Horse','Gen','Stable','Class','Races','Placed %','Win %','Odds','Rank']]
 
-# whos hot
+# data prep for the who's hot dataframe
 wh_df = wh_df[['img_url','zed_url','name','gen','gender','stable_name',
                'class','race_count','placed_pct','win_pct','odds','rank']]
-
 wh_df['url_name'] = display_links(wh_df)
 wh_df['Horse'] = horse_svg(wh_df)
-
-# changing Name to url_name
 wh_df.rename(columns={'url_name':'Name',
                       'gen':'Gen',
                       'gender':'Gender',
@@ -314,13 +308,12 @@ wh_df.rename(columns={'url_name':'Name',
                       'win_pct':'Win %',
                       'odds':'Odds',
                       'rank':'Rank'}, inplace=True)
-
 wh_df = wh_df[['Name','Horse','Gen','Stable','Class','Races','Placed %','Win %','Odds','Rank']]
-
 wh_df['Placed %'] = round(wh_df['Placed %'].astype(float)*100,2)
 wh_df['Win %'] = round(wh_df['Win %'].astype(float)*100,2)
 wh_df['Odds'] = round(wh_df['Odds'], 2)
 
+# Styling
 tab_style_t = {
     'borderBottom': '3px solid black',
     'borderTop': '3px solid black',
@@ -391,6 +384,7 @@ CONTENT_STYLE = {
     "padding": "1rem 1rem",
 }
 
+# leaderboard details
 badge = html.Div(
     html.H5(
         [f'Updated',dbc.Badge(updated,pill=True, color="dark", className="ml-1", style={'fontSize':'14px'}),
@@ -399,6 +393,7 @@ badge = html.Div(
     )
 )
 
+# nav bar creation
 items = [
     dbc.DropdownMenuItem("LΞADΞRBOARD", href="/leaderboard"),
     dbc.DropdownMenuItem(divider=True),
@@ -440,13 +435,13 @@ navbar = dbc.Navbar(
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(style={'backgroundColor': 'black'}, children=[
     dcc.Location(id="url"),
     navbar,
     content
 ])
 
-# add callback for toggling the collapse on small screens
+# callback for toggling the collapse on small screens
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -457,106 +452,14 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
+# renders the page content
 @app.callback(
     Output("page-content", "children"),
     [Input("url", "pathname")]
 )
 def render_page_content(pathname):
-    # eventually create a home landing page and push this down to /leaderboard
-    if pathname == "/":
-        return [html.Div(className='row',
-                        style = {'display':'flex',
-                                'width': '100%'},
-                        children=[
-                        html.H1(
-                            children='LΞADΞRBOARD',
-                            style={'height': '55px',
-                                'color': 'rgb(221, 235, 234)',
-                                'backgroundColor':'black',
-                                'paddingTop': '5px',
-                                'width': '100%',
-                                'textAlign': 'center',
-                                'fontSize': '40px',
-                                'display': 'inline-block',
-                                'fontFamily': font_family
-                            }
-                        ),
-                        badge,
-                        ]),
-                dcc.Tabs(
-                    id="tabs-with-filter",
-                    value='tab-t2',
-                    parent_className='custom-tabs',
-                    className='custom-tabs-container',
-                    children=[
-                        dcc.Tab(
-                            label='All-Time',
-                            value='tab-t1',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_t,
-                            selected_style=tab_selected_style
-                        ),
-                        dcc.Tab(
-                            label="Who's Hot (Last 2wks)",
-                            value='tab-t2',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_t,
-                            selected_style=tab_selected_style
-                        ),
-                ]),
-                html.Div(id='tabs-content-filter'),
-                dcc.Tabs(
-                    id="tabs-with-classes",
-                    value='tab-1',
-                    parent_className='custom-tabs',
-                    className='custom-tabs-container',
-                    children=[
-                        dcc.Tab(
-                            label='Class I',
-                            value='tab-1',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_b,
-                            selected_style=tab_selected_style_b
-                        ),
-                        dcc.Tab(
-                            label='Class II',
-                            value='tab-2',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_b,
-                            selected_style=tab_selected_style_b
-                        ),
-                        dcc.Tab(
-                            label='Class III',
-                            value='tab-3', className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_b,
-                            selected_style=tab_selected_style_b
-                        ),
-                        dcc.Tab(
-                            label='Class IV',
-                            value='tab-4',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_b,
-                            selected_style=tab_selected_style_b
-                        ),
-                        dcc.Tab(
-                            label='Class V',
-                            value='tab-5',
-                            className='custom-tab',
-                            selected_className='custom-tab--selected',
-                            style=tab_style_b,
-                            selected_style=tab_selected_style_b
-                        ),
-                ]),
-                html.Div(id='tabs-content-classes'),
-                html.Div(id='datatable-interactivity-container')
-                ]
-    if pathname == "/leaderboard":
+    # eventually create a home landing page and then make another elif for /leaderboard
+    if pathname == "/" or pathname == "/leaderboard":
         return [html.Div(className='row',
                         style = {'display':'flex',
                                 'width': '100%'},
@@ -693,11 +596,6 @@ def render_page_content(pathname):
                         })
                         ])
                 ]
-    elif pathname == "/page-2":
-        return [
-                html.H1('Test page-2',
-                        style={'textAlign':'center'})
-                ]
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
@@ -707,6 +605,7 @@ def render_page_content(pathname):
         ]
     )
 
+# callback for using the tab filters on the leaderboard page
 @app.callback(Output('tabs-content-classes', 'children'),
               Input('tabs-with-classes', 'value'),
               Input('tabs-with-filter', 'value'))
