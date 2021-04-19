@@ -461,23 +461,59 @@ def render_page_content(pathname):
     # eventually create a home landing page and then make another elif for /leaderboard
     if pathname == "/" or pathname == "/leaderboard":
         return [html.Div(className='row',
-                        style = {'display':'flex',
-                                'width': '100%'},
                         children=[
-                        html.H1(
-                            children='LΞADΞRBOARD',
-                            style={'height': '55px',
-                                'color': 'rgb(221, 235, 234)',
-                                'backgroundColor':'black',
-                                'paddingTop': '5px',
-                                'width': '100%',
-                                'textAlign': 'center',
-                                'fontSize': '40px',
-                                'display': 'inline-block',
-                                'fontFamily': font_family
-                            }
-                        ),
-                        badge,
+                            dbc.Row(
+                                [
+                                    dbc.Col(
+                                        html.Div([
+                                            dbc.Button(
+                                                "info",
+                                                id="simple-toast-toggle",
+                                                color="primary",
+                                                className="mb-3",
+                                                size="lg",
+                                                style={'height':'34px'}
+                                            ),
+                                            dbc.Toast(
+                                                [html.P("""A leaderboard of the top racehorses on the zed.run platform.
+                                                        I developed the ranking algorithm that weighs a number of race performance metrics
+                                                        in order to generate the final ranking. These metrics include:
+                                                        Win %, Place %, ETH Profit and Races.
+                                                        Horses will show up on the All-Time leaderboard once they have raced 25 paid races.
+                                                        To make it on the Who's Hot leaderboard you must have raced at least 10 paid races
+                                                        over the past two weeks.""", className="mb-0")],
+                                                id="simple-toast",
+                                                header="LΞADΞRBOARD info",
+                                                is_open=False,
+                                                dismissable=True,
+                                            ),
+                                        ]
+                                        ),
+                                        width="auto",
+                                        style={'margin-left': '-7px', 'margin-right': '8px'}
+                                    ),
+                                    dbc.Col(
+                                        html.H1(
+                                            children='LΞADΞRBOARD',
+                                            style={
+                                                'color': 'rgb(221, 235, 234)',
+                                                'backgroundColor':'black',
+                                                'fontSize': '44px',
+                                                'fontFamily': font_family
+                                            }
+                                        ),
+                                        width="auto",
+                                    ),
+                                    dbc.Col(
+                                        html.Div(
+                                            badge
+                                        ),
+                                        width="auto",
+                                    ),
+                                ],
+                                align="center",
+                                no_gutters=False,
+                            ),
                         ]),
                 dcc.Tabs(
                     id="tabs-with-filter",
@@ -604,6 +640,14 @@ def render_page_content(pathname):
             html.P(f"The pathname {pathname} was not recognised..."),
         ]
     )
+
+# callback for opening toast/info
+@app.callback(Output("simple-toast", "is_open"),
+              Input("simple-toast-toggle", "n_clicks"))
+def open_toast(n):
+    if n:
+        return True
+    return False
 
 # callback for using the tab filters on the leaderboard page
 @app.callback(Output('tabs-content-classes', 'children'),
