@@ -29,7 +29,7 @@ font_family = 'verdana'
 
 # initialize Dash app
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
-                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.42"}])
+                meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=.48"}])
 server = app.server
 app.title = tabtitle
 
