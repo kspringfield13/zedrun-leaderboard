@@ -578,7 +578,7 @@ def render_page_content(pathname):
                         ]),
                 dcc.Tabs(
                     id="tabs-with-filter",
-                    value='tab-1',
+                    value='tab-t2',
                     parent_className='custom-tabs',
                     className='custom-tabs-container',
                     children=[
