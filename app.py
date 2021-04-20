@@ -17,11 +17,11 @@ tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 # user input update for now
-updated = '4.20.2021 8:30am EST'
+updated = '4.20.2021 5:00pm EST'
 
 # .csv files. eventually transfer to postgres db
-lb_df = pd.read_csv('zedrun_leaderboard-2021-04-20T08_43_at.csv')
-wh_df = pd.read_csv('zedrun_leaderboard-2021-04-20T08_43_wh.csv')
+lb_df = pd.read_csv('zedrun_leaderboard-2021-04-20T17_16_at.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-2021-04-20T17_16_wh.csv')
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 
 # font for most of the site
