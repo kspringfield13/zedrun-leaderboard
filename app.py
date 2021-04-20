@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 
 import dash
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State, ClientsideFunction
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
@@ -17,11 +17,11 @@ tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 # user input update for now
-updated = '4.18.2021 12:00pm EST'
+updated = '4.20.2021 8:30am EST'
 
 # .csv files. eventually transfer to postgres db
-lb_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_at.csv')
-wh_df = pd.read_csv('zedrun_leaderboard-2021-04-18T12_02_wh.csv')
+lb_df = pd.read_csv('zedrun_leaderboard-2021-04-20T08_43_at.csv')
+wh_df = pd.read_csv('zedrun_leaderboard-2021-04-20T08_43_wh.csv')
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 
 # font for most of the site
@@ -398,12 +398,14 @@ items = [
     dbc.DropdownMenuItem("LΞADΞRBOARD", href="/leaderboard"),
     dbc.DropdownMenuItem(divider=True),
     dbc.DropdownMenuItem("HORSΞ COATS", href="/coats"),
+    dbc.DropdownMenuItem(divider=True),
+    dbc.DropdownMenuItem("DONATΞ", href="/donate")
 ]
 
 dropdown = dbc.Row(
     [
         dbc.Col(
-            dbc.DropdownMenu(items, label="INSIGHTS", color="primary", className="m-1", right=True, bs_size="lg"),
+            dbc.DropdownMenu(items, label="MΞNU", color="primary", className="m-1", right=True, bs_size="lg"),
         )
     ],
     no_gutters=True,
@@ -520,6 +522,7 @@ def render_page_content(pathname):
                                 ],
                                 align="center",
                                 no_gutters=False,
+                                style={'paddingBottom':'4px'}
                             ),
                         ]),
                 dcc.Tabs(
@@ -665,35 +668,11 @@ def render_page_content(pathname):
                             ],
                             align="center",
                             no_gutters=False,
+                            style={'paddingBottom':'4px'}
                         ),
-                        #
-                        # html.H1(
-                        #     children='HORSΞ COATS',
-                        #     style={'height': '55px',
-                        #         'color': 'rgb(221, 235, 234)',
-                        #         'backgroundColor':'black',
-                        #         'padding': '5px',
-                        #         'width': '100%',
-                        #         'textAlign': 'center',
-                        #         'fontSize': '40px',
-                        #         'display': 'inline-block',
-                        #         'fontFamily': font_family
-                        #     }
-                        # ),
-                        #
                         html.Div([
                             dcc.Graph(figure=fig, responsive='auto', style={'width': '100%', 'height': '100vh'}),
                         ], style = {'display': 'inline-block', 'width': '100%', 'height':'100vh', 'margin-left': '30px'}),
-                        # html.Div(
-                        #     children=f'Data updated: 4.14.2021 | 19681 Horses | *Billions included/hidden', style={
-                        #     'textAlign': 'right',
-                        #     'fontSize': '8px',
-                        #     'color': 'rgb(221, 235, 234)',
-                        #     'padding': '1px',
-                        #     'width': '100%',
-                        #     'display': 'inline-block',
-                        #     'fontFamily': font_family
-                        # }),
                         html.Div(
                             html.A("zed.run source", href='https://community.zed.run/breed/coat-colour/', target="_blank"), style={
                             'textAlign': 'right',
@@ -706,6 +685,38 @@ def render_page_content(pathname):
                         })
                         ])
                 ]
+    elif pathname == "/donate":
+        return dbc.Jumbotron(
+                    [
+                        html.H1("Donations accepted here. Thank you!", className="text-danger"),
+                        html.Hr(),
+                        html.Br(),
+                        html.Div([
+                            html.A([
+                                    html.Img(
+                                        src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+                                        # style={
+                                        #     'height' : '4%',
+                                        #     'width' : '4%',
+                                        #     'float' : 'right',
+                                        #     'position' : 'relative',
+                                        #     'padding-top' : 0,
+                                        #     'padding-right' : 0
+                                        # }
+                                        )
+                            ], href='https://www.paypal.com/donate?hosted_button_id=B2TVWBT8BVSZG')
+                        ]),
+                        html.Br(),
+                        html.Br(),
+                        html.P("ETH over Ethereum Mainnet is also an option:",
+                               style={'fontSize':'16px'}),
+                        html.Br(),
+                        html.P("0x25dBcB2550Abe56e15FEC436F56fB7664dd11a07",
+                               style={'fontSize':'16px'}),
+                        
+                    ],
+                    style = {'display': 'inline-block', 'width': '100%', 'height':'100vh'}
+                )
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
