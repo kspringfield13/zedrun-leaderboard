@@ -482,11 +482,13 @@ def render_page_content(pathname):
                                                         html.Br(),html.Br(),
                                                         """Included metrics:""",
                                                         html.Br(),
-                                                        """Win %, Place %, ETH Profit and Races.""",
+                                                        """Win %, Placed %, ETH Profit and Races.""",
                                                         html.Br(),html.Br(),
                                                         """Horses will show up on the All-Time leaderboard once they have raced 25 paid races.
                                                         To make it on the Who's Hot leaderboard you must have raced at least 10 paid races
                                                         over the past two weeks.""",
+                                                        html.Br(),html.Br(),
+                                                        """*Placed % is defined as the number of Top 3 placements divided by the number of total races in this case.""",
                                                         html.Br(),html.Br(),
                                                         """- oWylee"""], className="mb-0")],
                                                 id="simple-toast",
