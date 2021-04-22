@@ -6,6 +6,7 @@ import plotly.graph_objs as go
 import dash
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State, ClientsideFunction
+from sqlalchemy import create_engine
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
@@ -20,9 +21,16 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.
 updated = '4.21.2021 9:00am EST'
 
 # .csv files. eventually transfer to postgres db
-lb_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_at.csv')
-wh_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_wh.csv')
+# lb_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_at.csv')
+# wh_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_wh.csv')
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
+
+# postgres db
+DATABASE_URL = os.environ['DATABASE_URL']
+pgeng = create_engine(DATABASE_URL)
+
+lb_df = pd.read_sql_query("SELECT * FROM leaderboard WHERE category = 'AT';", pgeng)
+wh_df = pd.read_sql_query("SELECT * FROM leaderboard WHERE category = 'WH';", pgeng)
 
 # font for most of the site
 font_family = 'verdana'
