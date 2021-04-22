@@ -33,6 +33,9 @@ leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
 lb_df = leaderboard[leaderboard['category']=='AT']
 wh_df = leaderboard[leaderboard['category']=='WH']
 
+# close engine
+pgeng.dispose()
+
 # font for most of the site
 font_family = 'verdana'
 
