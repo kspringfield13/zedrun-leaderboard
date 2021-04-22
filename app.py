@@ -29,8 +29,9 @@ coats = pd.read_csv('horse_coats_4.14.2021.csv')
 DATABASE_URL = os.environ['DATABASE_URL']
 pgeng = create_engine(DATABASE_URL)
 
-lb_df = pd.read_sql_query("SELECT * FROM leaderboard WHERE category = 'AT';", pgeng)
-wh_df = pd.read_sql_query("SELECT * FROM leaderboard WHERE category = 'WH';", pgeng)
+leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
+lb_df = leaderboard[leaderboard['category']=='AT']
+wh_df = leaderboard[leaderboard['category']=='WH']
 
 # font for most of the site
 font_family = 'verdana'
