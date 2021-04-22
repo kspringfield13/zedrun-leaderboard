@@ -26,7 +26,7 @@ updated = '4.21.2021 9:00am EST'
 coats = pd.read_csv('horse_coats_4.14.2021.csv')
 
 # postgres db
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = "postgres://iustyxdawxcoqm:032457b374ab5a72f8a7400e84a163e2ef946e1ef4233a4a91e402c1b1e5e219@ec2-3-217-219-146.compute-1.amazonaws.com:5432/dcta4lcj11pdr4"
 pgeng = create_engine(DATABASE_URL)
 
 lb_df = pd.read_sql_query("SELECT * FROM leaderboard WHERE category = 'AT';", pgeng)
