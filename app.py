@@ -18,7 +18,7 @@ tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 # user input update for now
-updated = '4.22.2021 10:00pm EST'
+updated = '4.23.2021 3:45pm EST'
 
 # .csv files. eventually transfer to postgres db
 # lb_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_at.csv')
