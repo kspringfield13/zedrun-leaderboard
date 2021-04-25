@@ -31,7 +31,9 @@ pgeng = create_engine(DATABASE_URL)
 
 leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
 lb_df = leaderboard[leaderboard['category']=='AT']
+lb_df = lb_df.sort_values('rank', ascending=True)
 wh_df = leaderboard[leaderboard['category']=='WH']
+wh_df = wh_df.sort_values('rank', ascending=True)
 
 # close engine
 pgeng.dispose()
