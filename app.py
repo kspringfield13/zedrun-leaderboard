@@ -18,7 +18,8 @@ tabtitle = 'ZΞD RUN insights'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',dbc.themes.BOOTSTRAP]
 
 # user input update for now
-updated = '4.25.2021 6:20pm EST'
+# old manual way
+# updated = '4.25.2021 6:20pm EST'
 
 # .csv files. eventually transfer to postgres db
 # lb_df = pd.read_csv('zedrun_leaderboard-2021-04-21T09_01_at.csv')
@@ -79,6 +80,9 @@ app.index_string = '''<!DOCTYPE html>
 # combine .csv files to get total horse count
 com = lb_df.append(wh_df)
 horse_cnt = len(com.name.drop_duplicates().tolist())
+
+# get updated date
+updated = com.updated.drop_duplicates().tolist()[0]
 
 # create treemap/sunburst figure
 coats['Label'] = coats["Horse Count"].astype(str)
