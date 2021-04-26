@@ -28,16 +28,26 @@ coats = pd.read_csv('horse_coats_4.14.2021.csv')
 
 # postgres db
 DATABASE_URL = os.environ['DATABASE_URL']
-pgeng = create_engine(DATABASE_URL)
 
-leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
-lb_df = leaderboard[leaderboard['category']=='AT']
-lb_df = lb_df.sort_values('rank', ascending=True)
-wh_df = leaderboard[leaderboard['category']=='WH']
-wh_df = wh_df.sort_values('rank', ascending=True)
+def get_dfs(DATABASE_URL):
+    pgeng = create_engine(DATABASE_URL)
+    leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
 
-# close engine
-pgeng.dispose()
+    lb_df = leaderboard[leaderboard['category']=='AT']
+    lb_df = lb_df.sort_values('rank', ascending=True)
+    wh_df = leaderboard[leaderboard['category']=='WH']
+    wh_df = wh_df.sort_values('rank', ascending=True)
+    pgeng.dispose()
+    return lb_df, wh_df
+    
+# pgeng = create_engine(DATABASE_URL)
+# leaderboard = pd.read_sql_query("SELECT * FROM leaderboard;", pgeng)
+# lb_df = leaderboard[leaderboard['category']=='AT']
+# lb_df = lb_df.sort_values('rank', ascending=True)
+# wh_df = leaderboard[leaderboard['category']=='WH']
+# wh_df = wh_df.sort_values('rank', ascending=True)
+# # close engine
+# pgeng.dispose()
 
 # font for most of the site
 font_family = 'verdana'
@@ -76,6 +86,8 @@ app.index_string = '''<!DOCTYPE html>
 </body>
 </html>
 '''
+
+lb_df, wh_df = get_dfs(DATABASE_URL)
 
 # combine .csv files to get total horse count
 com = lb_df.append(wh_df)
