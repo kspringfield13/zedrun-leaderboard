@@ -711,15 +711,7 @@ def render_page_content(pathname):
                         html.Div([
                             html.A([
                                     html.Img(
-                                        src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
-                                        # style={
-                                        #     'height' : '4%',
-                                        #     'width' : '4%',
-                                        #     'float' : 'right',
-                                        #     'position' : 'relative',
-                                        #     'padding-top' : 0,
-                                        #     'padding-right' : 0
-                                        # }
+                                        src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif'
                                         )
                             ], href='https://www.paypal.com/donate?hosted_button_id=B2TVWBT8BVSZG')
                         ]),
